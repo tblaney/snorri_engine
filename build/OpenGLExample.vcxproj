@@ -413,6 +413,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\file\jsonloader.cpp" />
     <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\object\object.cpp" />
     <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\object\point.cpp" />
+    <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\camera\camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\build\ZERO_CHECK.vcxproj">

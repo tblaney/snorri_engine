@@ -8,6 +8,8 @@
 #include "object/object.h"
 #include "object/point.h"
 
+#include "camera/camera.h"
+
 #include <iostream> 
 #include <filesystem>
 #include <nlohmann/json.hpp>
@@ -18,25 +20,32 @@ int main() {
     glm::vec3 position(1.0f, 2.0f, 3.0f);
     glm::vec3 rotation(0.0f, 0.0f, 0.0f);
     glm::vec3 scale(1.0f, 1.0f, 1.0f);
-    Point point(position, rotation, scale);
+    Point cameraPosition(position, rotation, scale);
 
-    // Create an Object instance using the Point
-    Object obj(point);
+    // Create a Camera instance
+    glm::vec3 startFront(0.0f, 0.0f, -1.0f);
+    glm::vec3 startUp(0.0f, 1.0f, 0.0f);
+    float fov = 45.0f;
+    float aspectRatio = 800.0f / 600.0f;
+    float nearPlane = 0.1f;
+    float farPlane = 100.0f;
+
+    Camera camera(cameraPosition, startFront, startUp, fov, aspectRatio, nearPlane, farPlane);
 
     // Display the Point's attributes
     std::cout << "Initial Point attributes:" << std::endl;
     std::cout << "Position: (" 
-              << obj.getPoint().getPosition().x << ", "
-              << obj.getPoint().getPosition().y << ", "
-              << obj.getPoint().getPosition().z << ")" << std::endl;
+              << camera.getPoint().getPosition().x << ", "
+              << camera.getPoint().getPosition().y << ", "
+              << camera.getPoint().getPosition().z << ")" << std::endl;
     std::cout << "Rotation: (" 
-              << obj.getPoint().getRotation().x << ", "
-              << obj.getPoint().getRotation().y << ", "
-              << obj.getPoint().getRotation().z << ")" << std::endl;
+              << camera.getPoint().getRotation().x << ", "
+              << camera.getPoint().getRotation().y << ", "
+              << camera.getPoint().getRotation().z << ")" << std::endl;
     std::cout << "Scale: (" 
-              << obj.getPoint().getScale().x << ", "
-              << obj.getPoint().getScale().y << ", "
-              << obj.getPoint().getScale().z << ")" << std::endl;
+              << camera.getPoint().getScale().x << ", "
+              << camera.getPoint().getScale().y << ", "
+              << camera.getPoint().getScale().z << ")" << std::endl;
 
 
     Window window(640, 360, "snorri_engine_v1");

@@ -15,7 +15,10 @@ public:
     // Setters
     void setPoint(const Point& point);
 
-private:
+    // Update
+    virtual void update() = 0;
+
+protected:
     Point point;
 };
 

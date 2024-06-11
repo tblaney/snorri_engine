@@ -25,6 +25,9 @@
     <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\object\point.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\camera\camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\CMakeLists.txt" />

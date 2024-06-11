@@ -29,6 +29,7 @@ set(SOURCES
     src/file/jsonloader.cpp
     src/object/object.cpp
     src/object/point.cpp
+    src/camera/camera.cpp
 )
 
 # Add executable

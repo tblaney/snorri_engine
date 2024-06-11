@@ -1,16 +1,17 @@
-#ifndef RENDERER_H
-#define RENDERER_H
-
-#include <GL/glew.h>
+#pragma once
+#include "shader.h"
+#include "camera/camera.h"
 
 class Renderer {
-public:
-    Renderer();
-    ~Renderer();
-    void render() const;
-
 private:
-    GLuint vao, vbo, ebo;
-};
+    unsigned int VAO, VBO, EBO;
+    unsigned int texture;
+    Shader shader;
+    Camera camera;
 
-#endif // RENDERER_H
+public:
+    Renderer(const Camera& camera, const std::string& vertexPath, const std::string& fragmentPath);
+
+    void loadTexture(const char* path);
+    void render() const;
+};

@@ -66,8 +66,8 @@ int main() {
     std::cerr << "Fragment Shader Path: " << fragmentPath << std::endl;
 
     Shader shader(vertexPath.string(), fragmentPath.string());
-    Renderer renderer;
-
+    Renderer renderer(camera, vertexPath.string(), fragmentPath.string());
+    
     while (!window.shouldClose()) {
         window.clear();
 

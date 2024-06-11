@@ -15,6 +15,7 @@ set(GLFW_DIR "C:/Libraries/glfw-3.4.bin.WIN64")
 include_directories(${GLEW_DIR}/include ${GLFW_DIR}/include ${OPENGL_INCLUDE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/external/nlohmann_json/include)
 include_directories(${CMAKE_SOURCE_DIR}/external/glm/include)
+include_directories(${CMAKE_SOURCE_DIR}/external/stb/include)
 
 # Library directories for GLEW and GLFW
 link_directories(${GLEW_DIR}/lib/Release/x64 ${GLFW_DIR}/lib-vc2019)
@@ -30,6 +31,7 @@ set(SOURCES
     src/object/object.cpp
     src/object/point.cpp
     src/camera/camera.cpp
+    src/stb_image.cpp
 )
 
 # Add executable

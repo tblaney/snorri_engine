@@ -15,7 +15,6 @@
 #include <nlohmann/json.hpp>
 
 int main() {
-
     // Create a Point instance
     glm::vec3 position(1.0f, 2.0f, 3.0f);
     glm::vec3 rotation(0.0f, 0.0f, 0.0f);
@@ -47,7 +46,6 @@ int main() {
               << camera.getPoint().getScale().y << ", "
               << camera.getPoint().getScale().z << ")" << std::endl;
 
-
     Window window(640, 360, "snorri_engine_v1");
 
     // Get the path to the executable's directory
@@ -65,13 +63,11 @@ int main() {
     std::cerr << "Vertex Shader Path: " << vertexPath << std::endl;
     std::cerr << "Fragment Shader Path: " << fragmentPath << std::endl;
 
-    Shader shader(vertexPath.string(), fragmentPath.string());
     Renderer renderer(camera, vertexPath.string(), fragmentPath.string());
     
     while (!window.shouldClose()) {
         window.clear();
 
-        shader.use();
         renderer.render();
 
         window.display();

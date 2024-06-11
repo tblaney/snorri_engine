@@ -16,7 +16,7 @@
 
 int main() {
     // Create a Point instance
-    glm::vec3 position(1.0f, 2.0f, 3.0f);
+    glm::vec3 position(0.0f, 0.0f, 3.0f);
     glm::vec3 rotation(0.0f, 0.0f, 0.0f);
     glm::vec3 scale(1.0f, 1.0f, 1.0f);
     Point cameraPosition(position, rotation, scale);
@@ -25,7 +25,7 @@ int main() {
     glm::vec3 startFront(0.0f, 0.0f, -1.0f);
     glm::vec3 startUp(0.0f, 1.0f, 0.0f);
     float fov = 45.0f;
-    float aspectRatio = 800.0f / 600.0f;
+    float aspectRatio = 640.0f / 360.0f;
     float nearPlane = 0.1f;
     float farPlane = 100.0f;
 

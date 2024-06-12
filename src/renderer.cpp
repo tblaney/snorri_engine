@@ -3,8 +3,8 @@
 #include <iostream>
 
 // Constructor
-Renderer::Renderer(const Camera& cam, const std::string& vertexPath, const std::string& fragmentPath) 
-    : shader(vertexPath, fragmentPath), 
+Renderer::Renderer(const Point& rendererPoint, const Camera& cam, const std::string& vertexPath, const std::string& fragmentPath) 
+    : Object(rendererPoint), shader(vertexPath, fragmentPath), 
       camera(cam) {
 
     updateVerticesBasedOnCamera();
@@ -33,6 +33,11 @@ Renderer::Renderer(const Camera& cam, const std::string& vertexPath, const std::
     glBindVertexArray(0);
 
     loadTexture("../assets/images/test.png");
+}
+
+void Renderer::update() {
+    // Implementation of the update method
+    // You can add any updates related to the Renderer here
 }
 
 void Renderer::updateVerticesBasedOnCamera() {
@@ -96,6 +101,7 @@ void Renderer::render() const {
 
     shader.setMat4("view", view);
     shader.setMat4("projection", projection);
+    shader.setMat4("model", getPoint().getModelMatrix()); // Use the model matrix from the Point
 
     glBindTexture(GL_TEXTURE_2D, texture);
 

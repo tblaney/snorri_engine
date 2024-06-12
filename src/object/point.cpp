@@ -32,3 +32,14 @@ void Point::setRotation(const glm::vec3& rotation) {
 void Point::setScale(const glm::vec3& scale) {
     scale_ = scale;
 }
+
+// Method to get the model matrix
+glm::mat4 Point::getModelMatrix() const {
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, position_);
+    model = glm::rotate(model, glm::radians(rotation_.x), glm::vec3(1.0f, 0.0f, 0.0f));
+    model = glm::rotate(model, glm::radians(rotation_.y), glm::vec3(0.0f, 1.0f, 0.0f));
+    model = glm::rotate(model, glm::radians(rotation_.z), glm::vec3(0.0f, 0.0f, 1.0f));
+    model = glm::scale(model, scale_);
+    return model;
+}

@@ -32,6 +32,7 @@ set(SOURCES
     src/object/point.cpp
     src/camera/camera.cpp
     src/stb_image.cpp
+    src/file/jdict.cpp
 )
 
 # Add executable

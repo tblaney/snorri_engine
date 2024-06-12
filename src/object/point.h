@@ -2,6 +2,7 @@
 #define POINT_H
 
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 class Point {
 public:
@@ -18,6 +19,9 @@ public:
     void setPosition(const glm::vec3& position);
     void setRotation(const glm::vec3& rotation);
     void setScale(const glm::vec3& scale);
+
+    // Method to get the model matrix
+    glm::mat4 getModelMatrix() const;
 
 private:
     glm::vec3 position_;

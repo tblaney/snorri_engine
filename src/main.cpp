@@ -63,7 +63,8 @@ int main() {
     std::cerr << "Vertex Shader Path: " << vertexPath << std::endl;
     std::cerr << "Fragment Shader Path: " << fragmentPath << std::endl;
 
-    Renderer renderer(camera, vertexPath.string(), fragmentPath.string());
+    Point rendererPosition(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+    Renderer renderer(rendererPosition, camera, vertexPath.string(), fragmentPath.string());
     
     while (!window.shouldClose()) {
         window.clear();

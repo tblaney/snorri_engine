@@ -7,18 +7,7 @@ Renderer::Renderer(const Camera& cam, const std::string& vertexPath, const std::
     : shader(vertexPath, fragmentPath), 
       camera(cam) {
 
-    float vertices[] = {
-        // positions       // texture coords
-        -1.0f, -1.0f, 0.0f,  0.0f, 0.0f,
-         1.0f, -1.0f, 0.0f,  1.0f, 0.0f,
-         1.0f,  1.0f, 0.0f,  1.0f, 1.0f,
-        -1.0f,  1.0f, 0.0f,  0.0f, 1.0f
-    };
-
-    unsigned int indices[] = {
-        0, 1, 2,
-        2, 3, 0
-    };
+    updateVerticesBasedOnCamera();
 
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -32,16 +21,43 @@ Renderer::Renderer(const Camera& cam, const std::string& vertexPath, const std::
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
+    // vertex attributes
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(0); // set to 0 index
     
+    // tex attributes
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(1); // set to 1 index
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
     loadTexture("../assets/images/test.png");
+}
+
+void Renderer::updateVerticesBasedOnCamera() {
+    float aspectRatio = camera.aspectRatio;
+    float halfHeight = 1.0f;
+    float halfWidth = aspectRatio * halfHeight;
+
+    float newVertices[] = {
+        // positions       // texture coords
+        -1.0f, -1.0f, 0.0f,  0.0f, 0.0f,
+         1.0f, -1.0f, 0.0f,  1.0f, 0.0f,
+         1.0f,  1.0f, 0.0f,  1.0f, 1.0f,
+        -1.0f,  1.0f, 0.0f,  0.0f, 1.0f
+    };
+
+    // Update the vertices array in the class
+    for (int i = 0; i < 20; ++i) {
+        vertices[i] = newVertices[i];
+    }
+}
+
+void Renderer::updateVertices() {
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 // Load texture

@@ -14,6 +14,7 @@ public:
     void clear() const;
     void display() const;
     void pollEvents() const;
+    GLFWwindow* getGLFWwindow() const; // Add this line
 
 private:
     GLFWwindow* window;

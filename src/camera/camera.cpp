@@ -1,6 +1,7 @@
 #include "camera.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp> // Include this header for glm::lookAt and glm::perspective
+#include <iostream>
 
 Camera::Camera(Object* parent, glm::vec3 startFront, glm::vec3 startUp, float fov, float aspectRatio, float nearPlane, float farPlane) 
     : Component(parent), front(startFront), up(startUp), aspectRatio(aspectRatio) {
@@ -29,13 +30,14 @@ void Camera::updateAspectRatio(float aspectRatio) {
 
 void Camera::loadFromJson(const nlohmann::json& json) {
     // Implement loading logic, for example:
-    if (json.contains("front")) {
+    if (json.contains("front") && json["front"].is_array() && json["front"].size() == 3) {
         front = glm::vec3(json["front"][0], json["front"][1], json["front"][2]);
     }
-    if (json.contains("up")) {
+    if (json.contains("up") && json["up"].is_array() && json["up"].size() == 3) {
         up = glm::vec3(json["up"][0], json["up"][1], json["up"][2]);
     }
     if (json.contains("fov")) {
+        std::cout << "Camera found fov!" << std::endl;
         float fov = json["fov"];
         projectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, 0.1f, 100.0f);
     }

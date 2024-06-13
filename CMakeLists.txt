@@ -26,7 +26,6 @@ set(SOURCES
     src/shader.cpp
     src/file/pathutils.cpp
     src/file/jsonloader.cpp
-    src/file/jdict.cpp
     src/object/object.cpp
     src/object/point.cpp
     src/object/component.cpp

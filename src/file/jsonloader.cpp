@@ -11,5 +11,12 @@ nlohmann::json JsonLoader::loadJsonFile(const std::filesystem::path& filePath) {
 
     nlohmann::json jsonData;
     file >> jsonData;
+
+    printJson(jsonData);
+
     return jsonData;
+}
+
+void JsonLoader::printJson(const nlohmann::json& jsonData) {
+    std::cout << "Loaded JSON data:\n" << jsonData.dump(4) << std::endl;
 }

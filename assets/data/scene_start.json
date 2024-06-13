@@ -6,7 +6,9 @@
         "scale": []
     },
     "components": {
-
+        "camera": {
+            "fov": 45.0
+        }
     },
     "children": {
 

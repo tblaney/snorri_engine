@@ -3,7 +3,6 @@
 
 #include "file/pathutils.h"
 #include "file/jsonloader.h"
-#include "file/jdict.h"
 
 #include "object/object.h"
 #include "object/point.h"
@@ -19,11 +18,8 @@ int main() {
     Window window(640, 360, "snorri_engine_v1");
 
     std::filesystem::path jsonPath = getAssetPath("data/scene_start.json");
-    JDict dict("scene_start.json");
-    dict.log();
-    //JDict childDict = dict.get("point");
-    //childDict.log();
-    Object object(dict);
+    nlohmann::json config = JsonLoader::loadJsonFile(jsonPath.string());
+    Object object(config);
     
     //while (!window.shouldClose()) {
     //    window.clear();

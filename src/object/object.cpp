@@ -9,7 +9,7 @@ Object::Object() : point() {}
 Object::Object(const Point& point) : point(point) {}
 
 // JSON constructor
-Object::Object(const JDict& json) {
+Object::Object(const nlohmann::json& json) {
     loadFromJson(json);
 }
 
@@ -24,25 +24,22 @@ void Object::setPoint(const Point& point) {
 }
 
 // Load from JSON
-void Object::loadFromJson(const JDict& json) {
-    loadPoint(json.getDict("point"));
-    //loadComponents(json.get("components", JDict()));
-    //loadChildren(json.get("children", JDict()));
+void Object::loadFromJson(const nlohmann::json& json) {
+    loadPoint(json["point"]);
+    loadComponents(json["components"]);
+    loadChildren(json["children"]);
 }
 
 // Load Point data from JSON
-void Object::loadPoint(const JDict& json) {
-    if (json.contains("position") && json.get("position").is_array() && json.get("position").size() == 3) {
-        glm::vec3 pos = json.getVec("position");
-        point.setPosition(pos);
+void Object::loadPoint(const nlohmann::json& json) {
+    if (json.contains("position")  && json["rotation"].is_array() && json["rotation"].size() == 3) {
+        point.setPosition(glm::vec3(json["position"][0], json["position"][1], json["position"][2]));
     }
-    if (json.contains("rotation") && json.get("rotation").is_array() && json.get("rotation").size() == 3) {
-        glm::vec3 rot = json.getVec("rotation");
-        point.setRotation(rot);
+    if (json.contains("rotation") && json["rotation"].is_array() && json["rotation"].size() == 3) {
+        point.setRotation(glm::vec3(json["rotation"][0], json["rotation"][1], json["rotation"][2]));
     }
-    if (json.contains("scale") && json.get("scale").is_array() && json.get("scale").size() == 3) {
-        glm::vec3 s = json.getVec("scale");
-        point.setScale(s);
+    if (json.contains("scale")  && json["rotation"].is_array() && json["rotation"].size() == 3) {
+        point.setScale(glm::vec3(json["scale"][0], json["scale"][1], json["scale"][2]));
     }
 }
 

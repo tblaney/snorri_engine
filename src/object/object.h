@@ -3,7 +3,6 @@
 
 #include "point.h"
 #include "component.h"
-#include "../file/jdict.h"
 #include <nlohmann/json.hpp> // Include the JSON library
 #include <vector>
 #include <memory>
@@ -16,7 +15,7 @@ public:
     // Constructors
     Object();
     Object(const Point& point);
-    Object(const JDict& json); // New constructor
+    Object(const nlohmann::json& json); // New constructor
 
     // Getters
     Point getPoint() const;
@@ -25,7 +24,7 @@ public:
     void setPoint(const Point& point);
 
     // Load from JSON
-    void loadFromJson(const JDict& json);
+    void loadFromJson(const nlohmann::json& json);
 
     // Update (now a normal member function)
     virtual void update();
@@ -43,7 +42,7 @@ protected:
     std::vector<std::shared_ptr<Component>> components;
     std::unordered_map<std::string, std::shared_ptr<Object>> children;
 
-    void loadPoint(const JDict& json);
+    void loadPoint(const nlohmann::json& json);
     void loadComponents(const nlohmann::json& json);
     void loadChildren(const nlohmann::json& json);
 };

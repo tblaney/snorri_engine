@@ -1,0 +1,14 @@
+{
+    "name": "scene_start",
+    "point": {
+        "position": [],
+        "rotation": [],
+        "scale": []
+    },
+    "components": {
+
+    },
+    "children": {
+
+    }
+}

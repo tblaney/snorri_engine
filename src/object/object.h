@@ -2,14 +2,21 @@
 #define OBJECT_H
 
 #include "point.h"
+#include "component.h"
+#include "../file/jdict.h"
 #include <nlohmann/json.hpp> // Include the JSON library
+#include <vector>
+#include <memory>
+#include <unordered_map>
+#include <string>
+#include <functional>
 
 class Object {
 public:
     // Constructors
     Object();
     Object(const Point& point);
-    Object(const nlohmann::json& json); // New constructor
+    Object(const JDict& json); // New constructor
 
     // Getters
     Point getPoint() const;
@@ -18,13 +25,38 @@ public:
     void setPoint(const Point& point);
 
     // Load from JSON
-    virtual void loadFromJson(const nlohmann::json& json);
+    void loadFromJson(const JDict& json);
 
-    // Update
-    virtual void update() = 0;
+    // Update (now a normal member function)
+    virtual void update();
+
+    // Component management
+    template<typename T>
+    std::shared_ptr<T> getComponent() const;
+
+    using ComponentFactory = std::function<std::shared_ptr<Component>(Object*)>;
+    static std::unordered_map<std::string, ComponentFactory> componentFactories;
+    static void registerComponent(const std::string& name, ComponentFactory factory);
 
 protected:
     Point point;
+    std::vector<std::shared_ptr<Component>> components;
+    std::unordered_map<std::string, std::shared_ptr<Object>> children;
+
+    void loadPoint(const JDict& json);
+    void loadComponents(const nlohmann::json& json);
+    void loadChildren(const nlohmann::json& json);
 };
+
+template<typename T>
+std::shared_ptr<T> Object::getComponent() const {
+    for (const auto& component : components) {
+        std::shared_ptr<T> casted = std::dynamic_pointer_cast<T>(component);
+        if (casted) {
+            return casted;
+        }
+    }
+    return nullptr;
+}
 
 #endif // OBJECT_H

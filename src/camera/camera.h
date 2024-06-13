@@ -3,12 +3,13 @@
 #include "../object/object.h"
 #include <glm/glm.hpp>
 
-class Camera : public Object {
+class Camera : public Component {
 public:
-    Camera(const Point& startPoint, glm::vec3 startFront, glm::vec3 startUp, float fov, float aspectRatio, float nearPlane, float farPlane);
-
-    void update() override;
+    Camera(Object* parent, glm::vec3 startFront, glm::vec3 startUp, float fov, float aspectRatio, float nearPlane, float farPlane);
+    Camera(Object* parent);
     void updateAspectRatio(float aspectRatio);
+
+    void loadFromJson(const nlohmann::json& json) override;
 
     glm::mat4 viewMatrix;
     glm::mat4 projectionMatrix;

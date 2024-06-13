@@ -10,13 +10,13 @@
     <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\file\pathutils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\file\jsonloader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\file\jdict.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\object\object.cpp">
@@ -25,13 +25,10 @@
     <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\object\point.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\object\component.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\camera\camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\stb_image.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\file\jdict.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

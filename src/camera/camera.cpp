@@ -27,7 +27,7 @@ Camera::Camera(Object* parent)
     glm::vec3 position = getPoint().getPosition();
 
     Log::console("new camera at: " + glm::to_string(position));
-    
+
     viewMatrix = glm::lookAt(position, position + front, up);
     projectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
 }
@@ -68,7 +68,8 @@ void Camera::setupRenderer(const nlohmann::json& json) {
     if (json.contains("vert_shader") && json.contains("frag_shader") && json.contains("compute_shader")) {
         renderer = std::make_unique<Renderer>(
             getAssetPath("shaders/vertex_shader.glsl").string(), 
-            getAssetPath("shaders/fragment_shader.glsl").string());
+            getAssetPath("shaders/fragment_shader.glsl").string(),
+            getAssetPath("shaders/texture_shader.glsl").string());
     } else
     {
         Log::console("camera json has no data");

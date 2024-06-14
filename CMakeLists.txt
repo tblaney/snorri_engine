@@ -25,6 +25,7 @@ set(SOURCES
     src/main.cpp
     src/window.cpp
     src/shader.cpp
+    src/compute.cpp
     src/scene.cpp
     src/renderer.cpp
     src/log.cpp

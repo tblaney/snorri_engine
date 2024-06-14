@@ -4,8 +4,8 @@
 #include <glm/glm.hpp>
 
 // Constructor
-Renderer::Renderer(const std::string& vertexPath, const std::string& fragmentPath) 
-    : shader(vertexPath, fragmentPath) {
+Renderer::Renderer(const std::string& vertexPath, const std::string& fragmentPath, const std::string& computePath) 
+    : shader(vertexPath, fragmentPath), compute(computePath) {
 
     float vertices[] = {
         // positions       // texture coords
@@ -41,11 +41,10 @@ Renderer::Renderer(const std::string& vertexPath, const std::string& fragmentPat
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-    loadTexture("../assets/images/test.png");
+    createSolidColorTexture(640, 360, glm::vec3(1.0f, 0.0f, 0.0f));
 }
 
-// Load texture
-void Renderer::loadTexture(const char* path) {
+void Renderer::createSolidColorTexture(int width, int height, const glm::vec3& color) {
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
 
@@ -57,21 +56,29 @@ void Renderer::loadTexture(const char* path) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    // Load image, create texture and generate mipmaps
-    int width, height, nrChannels;
-    unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);
-    if (data) {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    } else {
-        std::cout << "Failed to load texture" << std::endl;
+    // Prepare color data for the texture
+    unsigned char* data = new unsigned char[width * height * 3];
+    for (int i = 0; i < width * height; ++i) {
+        data[i * 3 + 0] = static_cast<unsigned char>(color.r * 255);
+        data[i * 3 + 1] = static_cast<unsigned char>(color.g * 255);
+        data[i * 3 + 2] = static_cast<unsigned char>(color.b * 255);
     }
-    stbi_image_free(data);
+
+    // Create texture
+    //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, width, height, 0, GL_RGBA, GL_FLOAT, NULL);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    delete[] data;
 }
 
 // Render function
 void Renderer::render(glm::mat4 view, glm::mat4 projection) {
     glClear(GL_COLOR_BUFFER_BIT);
+
+    compute.setTexture(texture, 0);  // Binding the texture to image unit 0
+    compute.use();
+    compute.dispatch(640, 360, 1);
 
     shader.use();
     

@@ -19,6 +19,9 @@ public:
     glm::mat4 projectionMatrix;
 
     float aspectRatio;
+    float fov;
+    float nearPlane;
+    float farPlane;
 
 private:
     glm::vec3 front;

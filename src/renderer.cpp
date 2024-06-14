@@ -1,14 +1,11 @@
 #include "renderer.h"
-#include "log.h"
+#include <stb_image.h>
 #include <iostream>
+#include <glm/glm.hpp>
 
 // Constructor
-Renderer::Renderer(
-    const std::string& vertexPath, 
-    const std::string& fragmentPath, 
-    const std::string& computePath) 
-    : shader(vertexPath, fragmentPath), 
-        computePath(computePath) {
+Renderer::Renderer(const std::string& vertexPath, const std::string& fragmentPath) 
+    : shader(vertexPath, fragmentPath) {
 
     float vertices[] = {
         // positions       // texture coords
@@ -44,107 +41,40 @@ Renderer::Renderer(
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-    loadTexture();
+    loadTexture("../assets/images/test.png");
 }
-
-void Renderer::loadAndRunComputeShader() {
-    // Load and compile the compute shader
-    GLuint computeShader = glCreateShader(GL_COMPUTE_SHADER);
-    std::string computeShaderCode = Shader::readFile(computePath);
-    const char* cShaderCode = computeShaderCode.c_str();
-    glShaderSource(computeShader, 1, &cShaderCode, NULL);
-    glCompileShader(computeShader);
-    checkShaderCompilation(computeShader);
-
-    // Create a program and attach the shader
-    GLuint shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, computeShader);
-    glLinkProgram(shaderProgram);
-    checkProgramLinking(shaderProgram);
-
-    // Use the shader program
-    glUseProgram(shaderProgram);
-
-    // Bind texture to image unit
-    glBindImageTexture(0, texture, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F);
-    
-    // Dispatch the compute shader
-    glDispatchCompute((GLuint)(1024 / 16), (GLuint)(1024 / 16), 1);
-    glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT); // Ensure completion before using the texture
-
-    // Cleanup
-    glDeleteShader(computeShader);
-    glUseProgram(0);
-
-    Log::console("renderer setup!");
-}
-
-void Renderer::checkShaderCompilation(GLuint shader) {
-    GLint isCompiled = 0;
-    glGetShaderiv(shader, GL_COMPILE_STATUS, &isCompiled);
-    if(isCompiled == GL_FALSE) {
-        GLint maxLength = 0;
-        glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
-
-        // The maxLength includes the NULL character
-        std::string errorLog(maxLength, ' ');
-        glGetShaderInfoLog(shader, maxLength, &maxLength, &errorLog[0]);
-
-        // Provide the infolog in whatever manner you deem best.
-        std::cerr << "Shader compilation failed: " << errorLog << std::endl;
-
-        // Don't forget to delete the shader as it's useless now.
-        glDeleteShader(shader);
-    }
-}
-void Renderer::checkProgramLinking(GLuint program) {
-    GLint isLinked = 0;
-    glGetProgramiv(program, GL_LINK_STATUS, &isLinked);
-    if (isLinked == GL_FALSE) {
-        GLint maxLength = 0;
-        glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
-
-        // The maxLength includes the NULL character
-        std::string errorLog(maxLength, ' ');
-        glGetProgramInfoLog(program, maxLength, &maxLength, &errorLog[0]);
-
-        // Provide the infolog in whatever manner you deem best.
-        std::cerr << "Program linking failed: " << errorLog << std::endl;
-
-        // We don't need the program anymore.
-        glDeleteProgram(program);
-    }
-}
-
 
 // Load texture
-void Renderer::loadTexture() {
+void Renderer::loadTexture(const char* path) {
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
 
-    // Set texture wrapping and filtering parameters
+    // Set texture wrapping parameters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    // Set texture filtering parameters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    // Define an empty texture
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, 1024, 1024, 0, GL_RGBA, GL_FLOAT, NULL);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    // Load and run the compute shader to set texture values
-    loadAndRunComputeShader();
+    // Load image, create texture and generate mipmaps
+    int width, height, nrChannels;
+    unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);
+    if (data) {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    } else {
+        std::cout << "Failed to load texture" << std::endl;
+    }
+    stbi_image_free(data);
 }
 
 // Render function
-void Renderer::render(glm::mat4 viewMatrix, glm::mat4 projectionMatrix) {
+void Renderer::render(glm::mat4 view, glm::mat4 projection) {
     glClear(GL_COLOR_BUFFER_BIT);
 
     shader.use();
     
-    glm::mat4 view = viewMatrix;
-    glm::mat4 projection = projectionMatrix;
-
     shader.setMat4("view", view);
     shader.setMat4("projection", projection);
 

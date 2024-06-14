@@ -1,6 +1,9 @@
 C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\main.cpp;C:\Users\trave\Documents\GitHub\_c++\snorri_engine\build\OpenGLExample.dir\Debug\main.obj
 C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\window.cpp;C:\Users\trave\Documents\GitHub\_c++\snorri_engine\build\OpenGLExample.dir\Debug\window.obj
 C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\shader.cpp;C:\Users\trave\Documents\GitHub\_c++\snorri_engine\build\OpenGLExample.dir\Debug\shader.obj
+C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\scene.cpp;C:\Users\trave\Documents\GitHub\_c++\snorri_engine\build\OpenGLExample.dir\Debug\scene.obj
+C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\renderer.cpp;C:\Users\trave\Documents\GitHub\_c++\snorri_engine\build\OpenGLExample.dir\Debug\renderer.obj
+C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\log.cpp;C:\Users\trave\Documents\GitHub\_c++\snorri_engine\build\OpenGLExample.dir\Debug\log.obj
 C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\file\pathutils.cpp;C:\Users\trave\Documents\GitHub\_c++\snorri_engine\build\OpenGLExample.dir\Debug\pathutils.obj
 C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\file\jsonloader.cpp;C:\Users\trave\Documents\GitHub\_c++\snorri_engine\build\OpenGLExample.dir\Debug\jsonloader.obj
 C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\object\object.cpp;C:\Users\trave\Documents\GitHub\_c++\snorri_engine\build\OpenGLExample.dir\Debug\object.obj

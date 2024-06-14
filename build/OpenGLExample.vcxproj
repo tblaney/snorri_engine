@@ -408,6 +408,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\main.cpp" />
     <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\window.cpp" />
     <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\shader.cpp" />
+    <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\scene.cpp" />
+    <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\renderer.cpp" />
+    <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\log.cpp" />
     <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\file\pathutils.cpp" />
     <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\file\jsonloader.cpp" />
     <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\object\object.cpp" />

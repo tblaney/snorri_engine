@@ -1,4 +1,7 @@
 #include "camera.h"
+#include "../log.h"
+#include "../file/pathutils.h"
+#include "../file/jsonloader.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp> // Include this header for glm::lookAt and glm::perspective
 #include <iostream>
@@ -37,13 +40,46 @@ void Camera::loadFromJson(const nlohmann::json& json) {
         up = glm::vec3(json["up"][0], json["up"][1], json["up"][2]);
     }
     if (json.contains("fov")) {
-        std::cout << "Camera found fov!" << std::endl;
         float fov = json["fov"];
         projectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, 0.1f, 100.0f);
     }
     if (json.contains("aspectRatio")) {
         aspectRatio = json["aspectRatio"];
         projectionMatrix = glm::perspective(glm::radians(45.0f), aspectRatio, 0.1f, 100.0f);
+    }
+
+    Log::console("camera has loaded from json");
+    JsonLoader::printJson(json);
+
+    setupRenderer(json);
+}
+
+void Camera::setupRenderer(const nlohmann::json& json) {
+    // Implement loading logic, for example:
+    Log::console("camera setup renderer");
+    Log::console(json["vert_shader"]);
+
+    if (json.contains("vert_shader") && json.contains("frag_shader") && json.contains("compute_shader")) {
+        //std::filesystem::path vertexPath = getAssetPath("shaders/" + json["vert_shader"]);
+        //std::filesystem::path fragmentPath = getAssetPath("shaders/" + json["frag_shader"]);
+        //std::filesystem::path computePath = getAssetPath("shaders/" + json["compute_shader"]);
+
+        renderer = std::make_unique<Renderer>(
+            getAssetPath("shaders/vertex_shader.glsl").string(), 
+            getAssetPath("shaders/fragment_shader.glsl").string(), 
+            getAssetPath("shaders/texture_shader.glsl").string());
+    } else
+    {
+        Log::console("camera json has no data");
+    }
+}
+
+void Camera::update() {
+    //Log::console(
+    //    "camera update!"
+    //);
+    if (renderer) {
+        renderer->render(viewMatrix, projectionMatrix); // Pass this Camera instance to the renderer
     }
 }
 

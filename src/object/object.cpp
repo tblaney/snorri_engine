@@ -1,4 +1,5 @@
 #include "object.h"
+#include "../log.h"
 #include <nlohmann/json.hpp> // Include the JSON library
 #include <iostream>
 
@@ -17,6 +18,9 @@ Object::Object(const nlohmann::json& json) {
 Point Object::getPoint() const {
     return point;
 }
+std::string Object::getName() const {
+    return name;
+}
 
 // Setter
 void Object::setPoint(const Point& point) {
@@ -25,6 +29,10 @@ void Object::setPoint(const Point& point) {
 
 // Load from JSON
 void Object::loadFromJson(const nlohmann::json& json) {
+    if (json.contains("name")) {
+        name = json["name"].get<std::string>(); 
+        Log::console(name);
+    }
     loadPoint(json["point"]);
     loadComponents(json["components"]);
     loadChildren(json["children"]);
@@ -73,7 +81,13 @@ void Object::loadChildren(const nlohmann::json& json) {
 
 // Update (no longer a pure virtual function)
 void Object::update() {
-    // Default implementation can be empty or contain generic update logic
+    // Log::console("object update, with name: " + name);  
+    for (auto& component : components) {
+        component->update();  // Call the update method on each component
+    }
+    for (auto& [childName, child] : children) {
+        child->update();  // Recursively update child objects
+    }
 }
 
 // Initialize static member

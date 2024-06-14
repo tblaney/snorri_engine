@@ -1,5 +1,6 @@
 #include "window.h"
 #include "shader.h"
+#include "scene.h"
 
 #include "file/pathutils.h"
 #include "file/jsonloader.h"
@@ -17,18 +18,14 @@ int main() {
 
     Window window(640, 360, "snorri_engine_v1");
 
-    std::filesystem::path jsonPath = getAssetPath("data/scene_start.json");
-    nlohmann::json config = JsonLoader::loadJsonFile(jsonPath.string());
-    Object object(config);
-    
-    //while (!window.shouldClose()) {
-    //    window.clear();
+    Scene scene("data/scene_start.json");
 
-        //renderer.render();
-
-    //    window.display();
-    //    window.pollEvents();
-    //}
+    while (!window.shouldClose()) {
+        window.clear();
+        scene.update();
+        window.display();
+        window.pollEvents();
+    }
 
     return 0;
 }

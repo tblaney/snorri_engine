@@ -10,6 +10,15 @@
     <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\log.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\trave\Documents\GitHub\_c++\snorri_engine\src\file\pathutils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

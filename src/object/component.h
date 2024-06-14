@@ -12,7 +12,7 @@ public:
     virtual ~Component() {}
 
     virtual void loadFromJson(const nlohmann::json& json) = 0;
-
+    virtual void update() {}
 
 protected:
 

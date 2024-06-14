@@ -19,6 +19,7 @@ public:
 
     // Getters
     Point getPoint() const;
+    std::string getName() const;
 
     // Setters
     void setPoint(const Point& point);
@@ -27,7 +28,7 @@ public:
     void loadFromJson(const nlohmann::json& json);
 
     // Update (now a normal member function)
-    virtual void update();
+    void update();
 
     // Component management
     template<typename T>
@@ -41,6 +42,8 @@ protected:
     Point point;
     std::vector<std::shared_ptr<Component>> components;
     std::unordered_map<std::string, std::shared_ptr<Object>> children;
+
+    std::string name;
 
     void loadPoint(const nlohmann::json& json);
     void loadComponents(const nlohmann::json& json);

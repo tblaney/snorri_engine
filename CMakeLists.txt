@@ -24,6 +24,9 @@ set(SOURCES
     src/main.cpp
     src/window.cpp
     src/shader.cpp
+    src/scene.cpp
+    src/renderer.cpp
+    src/log.cpp
     src/file/pathutils.cpp
     src/file/jsonloader.cpp
     src/object/object.cpp

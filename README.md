@@ -18,3 +18,14 @@ The motivation behind creating this custom engine is to explore the potential fo
 ## Comparable Unity Project
 
 For a reference on how SDFs are utilized in a more conventional game development environment, check out the comparable Unity project: [Monster Maker Unity SDFs](https://github.com/tblaney/monster_maker_unity_sdfs/).
+
+## Getting Started
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/tblaney/snorri_engine.git
+2. ```bash
+   cd snorri_engine/build
+   cmake ..
+   cmake --build .
+   ./Debug/OpenGLExample.exe

@@ -35,10 +35,10 @@ public:
     std::shared_ptr<T> getComponent() const;
 
     using ComponentFactory = std::function<std::shared_ptr<Component>(Object*)>;
-    static std::unordered_map<std::string, ComponentFactory> componentFactories;
+    static std::unordered_map<std::string, ComponentFactory>& getComponentFactories();
     static void registerComponent(const std::string& name, ComponentFactory factory);
 
-protected:
+private:
     Point point;
     std::vector<std::shared_ptr<Component>> components;
     std::unordered_map<std::string, std::shared_ptr<Object>> children;

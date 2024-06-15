@@ -114,9 +114,14 @@ void Renderer::update() {
 }
 
 bool renderer_registered = []() {
-    Log::console("renderer registering now");
-    Object::registerComponent("renderer", [](Object* parent) {
-        return std::make_shared<Renderer>(parent);
-    });
+    try {
+        Log::console("renderer registering now");
+        Object::registerComponent("renderer", [](Object* parent) {
+            return std::make_shared<Renderer>(parent);
+        });
+    } catch (const std::exception& e) {
+        Log::console(std::string("Failed to register renderer: ") + e.what());
+        return false;
+    }
     return true;
 }();

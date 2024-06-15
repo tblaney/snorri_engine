@@ -28,6 +28,8 @@ set(SOURCES
     src/scene.cpp
     src/renderer.cpp
     src/log.cpp
+    src/surface/surface.cpp
+    src/surface/surfacemanager.cpp
     src/file/pathutils.cpp
     src/file/jsonloader.cpp
     src/object/object.cpp

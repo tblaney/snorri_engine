@@ -1,5 +1,6 @@
 #include "object.h"
 #include "../log.h"
+#include "../file/jsonloader.h"
 #include <nlohmann/json.hpp> // Include the JSON library
 #include <iostream>
 
@@ -33,9 +34,17 @@ void Object::loadFromJson(const nlohmann::json& json) {
         name = json["name"].get<std::string>(); 
         Log::console(name);
     }
-    loadPoint(json["point"]);
-    loadComponents(json["components"]);
-    loadChildren(json["children"]);
+    Log::console("loading from json:");
+    JsonLoader::printJson(json);
+    if (json.contains("point")) {
+        loadPoint(json["point"]);
+    } else {
+        point.setScale(glm::vec3(1.0,1.0,1.0));
+    }
+    if (json.contains("components")) 
+        loadComponents(json["components"]);
+    if (json.contains("children"))
+        loadChildren(json["children"]);
 }
 
 // Load Point data from JSON
@@ -57,8 +66,8 @@ void Object::loadComponents(const nlohmann::json& json) {
         std::string type = componentJson.key();
         nlohmann::json componentData = componentJson.value();
         
-        auto it = componentFactories.find(type);
-        if (it != componentFactories.end()) {
+        auto it = getComponentFactories().find(type);
+        if (it != getComponentFactories().end()) {
             std::shared_ptr<Component> component = it->second(this);
             component->loadFromJson(componentData);
             components.push_back(component);
@@ -90,10 +99,10 @@ void Object::update() {
     }
 }
 
-// Initialize static member
-std::unordered_map<std::string, Object::ComponentFactory> Object::componentFactories;
-
-// Register component factory
+std::unordered_map<std::string, Object::ComponentFactory>& Object::getComponentFactories() {
+    static std::unordered_map<std::string, Object::ComponentFactory> componentFactories;
+    return componentFactories;
+}
 void Object::registerComponent(const std::string& name, ComponentFactory factory) {
-    componentFactories[name] = factory;
+    getComponentFactories()[name] = factory;
 }

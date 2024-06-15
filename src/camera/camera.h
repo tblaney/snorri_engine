@@ -1,4 +1,5 @@
 #pragma once
+
 #include "../object/point.h"
 #include "../object/object.h"
 #include <glm/glm.hpp>

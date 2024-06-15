@@ -8,9 +8,12 @@
     "components": {
         "camera": {
             "fov": 45.0,
-            "vert_shader": "vertex_shader.glsl",
-            "frag_shader": "fragment_shader.glsl",
-            "compute_shader": "texture_shader.glsl"
+            "is_main": true
+        },
+        "renderer": {
+            "vert_shader": "shaders/vertex_shader.glsl",
+            "frag_shader": "shaders/fragment_shader.glsl",
+            "compute_shader": "shaders/raymarch_shader.glsl"
         }
     },
     "children": {

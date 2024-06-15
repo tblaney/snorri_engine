@@ -7,8 +7,10 @@
 
 class Shader {
 public:
-    Shader(const std::string& vertexPath, const std::string& fragmentPath);
+    Shader();
     ~Shader();
+
+    void setShaderPaths(const std::string& vertexPath, const std::string& fragmentPath);
 
     void use() const;
     void setInt(const std::string& name, int value) const;
@@ -18,7 +20,6 @@ public:
 
 private:
     GLuint program;
-
     GLuint compileShader(GLenum type, const std::string& source);
 };
 

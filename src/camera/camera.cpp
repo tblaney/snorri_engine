@@ -9,6 +9,8 @@
 #include <glm/ext.hpp>
 #include <iostream>
 
+Camera* Camera::mainCamera = nullptr;
+
 Camera::Camera(Object* parent, glm::vec3 startFront, glm::vec3 startUp, float fov, float aspectRatio, float nearPlane, float farPlane) 
     : Component(parent), front(startFront), up(startUp), aspectRatio(aspectRatio), fov(fov), nearPlane(nearPlane), farPlane(farPlane) {
     glm::vec3 position = getPoint().getPosition();
@@ -38,6 +40,10 @@ void Camera::updateAspectRatio(float aspectRatio) {
 }
 
 void Camera::loadFromJson(const nlohmann::json& json) {
+    bool isMainCamera = json.contains("is_main");
+    if (isMainCamera)
+        setMainCamera(this);
+
     // Implement loading logic, for example:
     if (json.contains("front") && json["front"].is_array() && json["front"].size() == 3) {
         front = glm::vec3(json["front"][0], json["front"][1], json["front"][2]);
@@ -56,33 +62,16 @@ void Camera::loadFromJson(const nlohmann::json& json) {
 
     Log::console("camera has loaded from json");
     JsonLoader::printJson(json);
-
-    setupRenderer(json);
 }
 
-void Camera::setupRenderer(const nlohmann::json& json) {
-    // Implement loading logic, for example:
-    Log::console("camera setup renderer");
-    Log::console(json["vert_shader"]);
-
-    if (json.contains("vert_shader") && json.contains("frag_shader") && json.contains("compute_shader")) {
-        renderer = std::make_unique<Renderer>(
-            getAssetPath("shaders/vertex_shader.glsl").string(), 
-            getAssetPath("shaders/fragment_shader.glsl").string(),
-            getAssetPath("shaders/texture_shader.glsl").string());
-    } else
-    {
-        Log::console("camera json has no data");
-    }
+Camera* Camera::getMainCamera() {
+    return mainCamera;
+}
+void Camera::setMainCamera(Camera* camera) {
+    mainCamera = camera;
 }
 
 void Camera::update() {
-    //Log::console(
-    //    "camera update!"
-    //);
-    if (renderer) {
-        renderer->render(viewMatrix, projectionMatrix); // Pass this Camera instance to the renderer
-    }
 }
 
 bool camera_registered = []() {

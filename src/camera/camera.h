@@ -6,11 +6,12 @@
 
 class Camera : public Component {
 public:
+    static Camera* getMainCamera();
+    static void setMainCamera(Camera* camera);  // Static method to set the main camera
+
     Camera(Object* parent, glm::vec3 startFront, glm::vec3 startUp, float fov, float aspectRatio, float nearPlane, float farPlane);
     Camera(Object* parent);
     void updateAspectRatio(float aspectRatio);
-
-    void setupRenderer(const nlohmann::json& json);
 
     void loadFromJson(const nlohmann::json& json) override;
     void update() override;
@@ -26,5 +27,5 @@ public:
 private:
     glm::vec3 front;
     glm::vec3 up;
-    std::unique_ptr<Renderer> renderer;
+    static Camera* mainCamera;  // Static pointer to the main camera
 };

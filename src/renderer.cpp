@@ -1,11 +1,21 @@
 #include "renderer.h"
+#include "camera/camera.h"
+#include "file/pathutils.h"
+#include "log.h"
 #include <stb_image.h>
 #include <iostream>
 #include <glm/glm.hpp>
 
 // Constructor
-Renderer::Renderer(const std::string& vertexPath, const std::string& fragmentPath, const std::string& computePath) 
-    : shader(vertexPath, fragmentPath), compute(computePath) {
+Renderer::Renderer(Object* parent) 
+    : Component(parent), shader(), compute() {
+        Log::console("renderer new instance!");
+}
+
+void Renderer::loadFromJson(const nlohmann::json& json) {
+
+    shader.setShaderPaths(getAssetPath(json["vert_shader"]).string(), getAssetPath(json["frag_shader"]).string());
+    compute.setShaderPath(getAssetPath(json["compute_shader"]).string());
 
     float vertices[] = {
         // positions       // texture coords
@@ -41,8 +51,13 @@ Renderer::Renderer(const std::string& vertexPath, const std::string& fragmentPat
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-    createSolidColorTexture(640, 360, glm::vec3(1.0f, 0.0f, 0.0f));
+    if (json.contains("width") && json.contains("height")) {
+        createSolidColorTexture(json["width"], json["height"], glm::vec3(1.0f, 0.0f, 0.0f));
+    } else {
+        createSolidColorTexture(640, 360, glm::vec3(1.0f, 0.0f, 0.0f));
+    }
 }
+
 
 void Renderer::createSolidColorTexture(int width, int height, const glm::vec3& color) {
     glGenTextures(1, &texture);
@@ -93,3 +108,15 @@ void Renderer::render(glm::mat4 view, glm::mat4 projection) {
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
+
+void Renderer::update() {
+    Camera* cam = Camera::getMainCamera();
+    render(cam->viewMatrix, cam->projectionMatrix);
+}
+
+bool renderer_registered = []() {
+    Object::registerComponent("renderer", [](Object* parent) {
+        return std::make_shared<Renderer>(parent);
+    });
+    return true;
+}();

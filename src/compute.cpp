@@ -1,6 +1,10 @@
 #include "compute.h"
 
-ComputeShader::ComputeShader(const std::string& filePath) {
+ComputeShader::ComputeShader() {
+        
+}
+
+void ComputeShader::setShaderPath(const std::string& filePath) {
     std::string shaderCode = readShaderFile(filePath);
     const char* shaderSource = shaderCode.c_str();
 

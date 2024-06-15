@@ -10,8 +10,10 @@ private:
     GLuint programID;
 
 public:
-    ComputeShader(const std::string& filePath);
+    ComputeShader();
     ~ComputeShader();
+
+    void setShaderPath(const std::string& computePath);
 
     void use();
     void dispatch(int width, int height, int depth);

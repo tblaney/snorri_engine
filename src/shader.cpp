@@ -4,7 +4,11 @@
 #include <sstream>
 #include <glm/gtc/type_ptr.hpp>
 
-Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath) {
+Shader::Shader() {
+
+}
+
+void Shader::setShaderPaths(const std::string& vertexPath, const std::string& fragmentPath) {
     std::string vertexSource = readFile(vertexPath);
     std::string fragmentSource = readFile(fragmentPath);
 

@@ -25,7 +25,9 @@ For a reference on how SDFs are utilized in a more conventional game development
    ```bash
    git clone https://github.com/tblaney/snorri_engine.git
 2. ```bash
-   cd snorri_engine/build
+   cd snorri_engine
+   mkdir build
+   cd build
    cmake ..
    cmake --build .
    ./Debug/OpenGLExample.exe

@@ -13,9 +13,7 @@ Camera* Camera::mainCamera = nullptr;
 
 Camera::Camera(Object* parent, glm::vec3 startFront, glm::vec3 startUp, float fov, float aspectRatio, float nearPlane, float farPlane) 
     : Component(parent), front(startFront), up(startUp), aspectRatio(aspectRatio), fov(fov), nearPlane(nearPlane), farPlane(farPlane) {
-    glm::vec3 position = getPoint().getPosition();
-    viewMatrix = glm::lookAt(position, position + front, up);
-    projectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
+    refreshMatrices();
 }
 Camera::Camera(Object* parent) 
     : Component(parent) {
@@ -26,12 +24,7 @@ Camera::Camera(Object* parent)
     nearPlane = 0.1f;
     farPlane = 100.0f;
 
-    glm::vec3 position = getPoint().getPosition();
-
-    Log::console("new camera at: " + glm::to_string(position));
-
-    viewMatrix = glm::lookAt(position, position + front, up);
-    projectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
+    refreshMatrices();
 }
 
 void Camera::updateAspectRatio(float aspectRatio) {
@@ -40,8 +33,7 @@ void Camera::updateAspectRatio(float aspectRatio) {
 }
 
 void Camera::loadFromJson(const nlohmann::json& json) {
-    bool isMainCamera = json.contains("is_main");
-    if (isMainCamera)
+    if (json.contains("is_main") && json["is_main"] == true)
         setMainCamera(this);
 
     // Implement loading logic, for example:
@@ -53,11 +45,9 @@ void Camera::loadFromJson(const nlohmann::json& json) {
     }
     if (json.contains("fov")) {
         float fov = json["fov"];
-        projectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, 0.1f, 100.0f);
     }
     if (json.contains("aspectRatio")) {
         aspectRatio = json["aspectRatio"];
-        projectionMatrix = glm::perspective(glm::radians(45.0f), aspectRatio, 0.1f, 100.0f);
     }
 
     Log::console("camera has loaded from json");
@@ -71,7 +61,37 @@ void Camera::setMainCamera(Camera* camera) {
     mainCamera = camera;
 }
 
+glm::vec3 Camera::getForward() {
+    return getPoint().getFrontDirection();
+}
+
 void Camera::update() {
+    refreshMatrices();
+}
+
+void Camera::refreshMatrices() {
+    glm::vec3 position = getPoint().getPosition();
+    //std::cout << "camera position: (" 
+    //          << position.x << ", " 
+    //          << position.y << ", " 
+    //          << position.z << ")" << std::endl;
+    //glm::vec3 front = getPoint().getFrontDirection();
+    //glm::vec3 up = getPoint().getUpDirection();
+    glm::vec3 front(0.0f, 0.0f, -1.0f);
+    glm::vec3 up(0.0f, 1.0f, 0.0f);
+    viewMatrix = glm::lookAt(position, position + front, up);
+    projectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
+    cameraToWorldMatrix = glm::inverse(viewMatrix);
+    cameraInverseProjectionMatrix = glm::inverse(projectionMatrix);
+    
+    //std::cout << "Camera To World Matrix:" << std::endl;
+    //for (int i = 0; i < 4; ++i) {
+    //    for (int j = 0; j < 4; ++j) {
+    //        std::cout << cameraToWorldMatrix[i][j] << " ";
+    //    }
+    //    std::cout << std::endl;
+    //}
+    
 }
 
 bool camera_registered = []() {

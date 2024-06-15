@@ -43,3 +43,19 @@ glm::mat4 Point::getModelMatrix() const {
     model = glm::scale(model, scale_);
     return model;
 }
+
+glm::vec3 Point::getFrontDirection() const {
+    glm::vec3 front;
+    front.x = -cos(glm::radians(rotation_.y)) * sin(glm::radians(rotation_.z));
+    front.y = sin(glm::radians(rotation_.x));
+    front.z = cos(glm::radians(rotation_.x)) * cos(glm::radians(rotation_.y));
+    return glm::normalize(front);
+}
+
+glm::vec3 Point::getUpDirection() const {
+    glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f); // Assuming 'up' is always Y-axis aligned
+    glm::mat4 rot = glm::rotate(glm::mat4(1.0f), glm::radians(rotation_.x), glm::vec3(1, 0, 0));
+    rot = glm::rotate(rot, glm::radians(rotation_.y), glm::vec3(0, 1, 0));
+    rot = glm::rotate(rot, glm::radians(rotation_.z), glm::vec3(0, 0, 1));
+    return glm::mat3(rot) * up;
+}

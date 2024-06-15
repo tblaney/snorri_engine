@@ -1,10 +1,14 @@
 #include "renderer.h"
+#include "light.h"
 #include "camera/camera.h"
 #include "file/pathutils.h"
 #include "object/object.h"
 #include "log.h"
 #include <iostream>
 #include <glm/glm.hpp>
+#include "surface/surface.h"
+#include "surface/surfacemanager.h"
+#include "time.h"
 
 // Constructor
 Renderer::Renderer(Object* parent) 
@@ -57,7 +61,6 @@ void Renderer::loadFromJson(const nlohmann::json& json) {
     }
 }
 
-
 void Renderer::createSolidColorTexture(int width, int height, const glm::vec3& color) {
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
@@ -86,18 +89,41 @@ void Renderer::createSolidColorTexture(int width, int height, const glm::vec3& c
     delete[] data;
 }
 
+void Renderer::setupSurfaceBuffer() {
+    std::vector<SurfaceData> surfaceDatas;
+    for (auto& surface : SurfaceManager::activeSurfaces) {
+        SurfaceData data;
+        data.position = surface->getPosition(); // Ensure Surface has a getPosition() method
+        surfaceDatas.push_back(data);
+    }
+    // Log::console("Setting up surface buffer with " + std::to_string(surfaceDatas.size()) + " surfaces.");
+    compute.setupSurfaceBuffer(surfaceDatas);
+    compute.setInt("numSurfaces", static_cast<int>(surfaceDatas.size()));
+}
+void Renderer::setupComputeData(Camera* camera, Light* light) {
+    compute.setMat4("cameraToWorld", camera->cameraToWorldMatrix);
+    compute.setMat4("cameraInverseProjection", camera->cameraInverseProjectionMatrix);
+    compute.setVec3("cameraForward", camera->getForward());
+    compute.setFloat("time", Time::since);
+    compute.setVec3("lightDirection", light->getDirection());
+    compute.setVec3("lightPosition", light->getPosition());
+}
+
 // Render function
-void Renderer::render(glm::mat4 view, glm::mat4 projection) {
+void Renderer::render(Camera* cam, Light* light) {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    compute.setTexture(texture, 0);  // Binding the texture to image unit 0
     compute.use();
+    setupComputeData(cam, light);
+    setupSurfaceBuffer(); // Binding compute buffer with surface data to image unit 0
+    compute.setupResultBuffer(640*360);
+    compute.setTexture(texture, 1);  // Binding the texture to image unit 1
     compute.dispatch(640, 360, 1);
 
+    std::vector<ResultData> results = compute.retrieveResults(1024);
+    compute.printResults(results);  // Print the results
+
     shader.use();
-    
-    shader.setMat4("view", view);
-    shader.setMat4("projection", projection);
 
     glBindTexture(GL_TEXTURE_2D, texture);
 
@@ -110,7 +136,12 @@ void Renderer::render(glm::mat4 view, glm::mat4 projection) {
 
 void Renderer::update() {
     Camera* cam = Camera::getMainCamera();
-    render(cam->viewMatrix, cam->projectionMatrix);
+    if (cam == nullptr)
+        return;
+    Light* light = Light::getMainLight();
+    if (light == nullptr)
+        return;
+    render(cam, light);
 }
 
 bool renderer_registered = []() {

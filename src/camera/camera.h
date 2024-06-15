@@ -16,8 +16,14 @@ public:
     void loadFromJson(const nlohmann::json& json) override;
     void update() override;
 
+    void refreshMatrices();
+
+    glm::vec3 getForward();
+
     glm::mat4 viewMatrix;
     glm::mat4 projectionMatrix;
+    glm::mat4 cameraToWorldMatrix;
+    glm::mat4 cameraInverseProjectionMatrix;
 
     float aspectRatio;
     float fov;

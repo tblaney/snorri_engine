@@ -23,6 +23,9 @@ public:
     // Method to get the model matrix
     glm::mat4 getModelMatrix() const;
 
+    glm::vec3 getFrontDirection() const;
+    glm::vec3 getUpDirection() const;
+
 private:
     glm::vec3 position_;
     glm::vec3 rotation_;

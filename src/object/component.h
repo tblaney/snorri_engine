@@ -15,10 +15,10 @@ public:
     virtual void update() {}
 
 protected:
-
-    Point getPoint() const;
-
     Object* parent;
+
+    Point& getPoint();           // Non-const version to modify Point directly
+    const Point& getPoint() const; // Const version for read-only access
 };
 
 #endif // COMPONENT_H

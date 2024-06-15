@@ -1,11 +1,16 @@
 #include "surface.h"
 #include "surfacemanager.h"
 #include "../log.h"
+#include <glm/glm.hpp>
 
 Surface::Surface(Object* parent) 
     : Component(parent), type(0) {
-    //SurfaceManager::registerSurface(shared_from_this());
     Log::console("new surface!");
+}
+
+Surface::~Surface() {
+    if (!SurfaceManager::isApplicationShuttingDown)
+        SurfaceManager::unregisterSurface(shared_from_this());
 }
 
 void Surface::loadFromJson(const nlohmann::json& json) {
@@ -14,6 +19,10 @@ void Surface::loadFromJson(const nlohmann::json& json) {
 
 void Surface::update() {
 
+}
+
+glm::vec3 Surface::getPosition() {
+    return getPoint().getPosition();
 }
 
 bool surface_registered = []() {

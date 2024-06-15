@@ -11,4 +11,8 @@ public:
 
     static void registerSurface(const std::shared_ptr<Surface>& surface);
     static void unregisterSurface(const std::shared_ptr<Surface>& surface);
+    
+    static bool isApplicationShuttingDown;
+    
+private:
 };

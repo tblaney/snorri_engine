@@ -18,7 +18,8 @@ public:
     Object(const nlohmann::json& json); // New constructor
 
     // Getters
-    Point getPoint() const;
+    Point& getPoint();           // Non-const version to modify Point directly
+    const Point& getPoint() const; // Const version for read-only access
     std::string getName() const;
 
     // Setters

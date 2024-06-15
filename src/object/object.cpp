@@ -16,7 +16,10 @@ Object::Object(const nlohmann::json& json) {
 }
 
 // Getter
-Point Object::getPoint() const {
+Point& Object::getPoint() {
+    return point;
+}
+const Point& Object::getPoint() const {
     return point;
 }
 std::string Object::getName() const {

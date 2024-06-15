@@ -36,6 +36,8 @@ set(SOURCES
     src/object/point.cpp
     src/object/component.cpp
     src/camera/camera.cpp
+    src/time.cpp
+    src/light.cpp
 )
 
 # Add executable

@@ -11,11 +11,11 @@
 #include "camera/camera.h"
 
 #include <iostream> 
-#include <filesystem>
-#include <nlohmann/json.hpp>
 
 int main() {
 
+    std::cout << "Hello World!" << std::endl;
+    
     Window window(640, 360, "snorri_engine_v1");
 
     Scene scene("data/scene_start.json");

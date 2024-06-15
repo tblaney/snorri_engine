@@ -1,7 +1,6 @@
 #pragma once
 #include "../object/point.h"
 #include "../object/object.h"
-#include "../renderer.h"
 #include <glm/glm.hpp>
 
 class Camera : public Component {

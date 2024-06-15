@@ -1,15 +1,14 @@
 #include "renderer.h"
 #include "camera/camera.h"
 #include "file/pathutils.h"
+#include "object/object.h"
 #include "log.h"
-#include <stb_image.h>
 #include <iostream>
 #include <glm/glm.hpp>
 
 // Constructor
 Renderer::Renderer(Object* parent) 
     : Component(parent), shader(), compute() {
-        Log::console("renderer new instance!");
 }
 
 void Renderer::loadFromJson(const nlohmann::json& json) {
@@ -115,6 +114,7 @@ void Renderer::update() {
 }
 
 bool renderer_registered = []() {
+    Log::console("renderer registering now");
     Object::registerComponent("renderer", [](Object* parent) {
         return std::make_shared<Renderer>(parent);
     });

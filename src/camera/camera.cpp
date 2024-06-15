@@ -75,6 +75,7 @@ void Camera::update() {
 }
 
 bool camera_registered = []() {
+    Log::console("camera registering now");
     Object::registerComponent("camera", [](Object* parent) {
         return std::make_shared<Camera>(parent);
     });

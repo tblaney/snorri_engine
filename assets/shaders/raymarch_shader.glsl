@@ -31,11 +31,14 @@ struct Ray {
 struct Surface {
     float distanceToSurface;
     vec4 diffuse;
+    float outline;
 };
 
 #define SURF_DIST 0.001
 #define MAX_STEPS 150
 #define MAX_DIST 300.0
+#define EPSILON 0.001;
+#define SHADOW_BIAS 0.05;
 
 uniform mat4 cameraToWorld;
 uniform mat4 cameraInverseProjection;
@@ -45,6 +48,7 @@ uniform vec3 lightDirection;
 uniform vec3 lightPosition;
 uniform float time;
 uniform int numSurfaces;
+uniform float outlineWidth;
 
 
 Ray createRay(vec3 origin, vec3 direction) {
@@ -141,21 +145,36 @@ Surface getSurface(vec3 position) {
     }
     return surface;
 }
-Surface rayMarch(Ray ray) {
+Surface rayMarch(Ray ray, bool isSolidIncrement) {
     Surface surface;
+    float lastSDF = MAX_DIST;
+    float edge = 0.0;
     float distanceToSurface = 0.0;
     for (int i = 0; i < MAX_STEPS; i++)
     {
         vec3 pos = ray.origin + ray.direction*distanceToSurface;
+        if (isSolidIncrement)
+        {
+            pos = ray.origin + ray.direction*i;
+        }
         Surface surf = getSurface(pos);
         surface.diffuse = surf.diffuse;
         float d = surf.distanceToSurface;
 
+        if ((lastSDF < outlineWidth) && (d > lastSDF)) {
+            edge = 1.0;
+        }
+
         if (d < SURF_DIST || distanceToSurface > MAX_DIST) break;
 
         distanceToSurface += d;
+        lastSDF = d;
+
+        if (edge > 0.9)
+            break;
     }
     surface.distanceToSurface = distanceToSurface;
+    surface.outline = edge;
     return surface;
 }
 vec3 getNormal(vec3 surfPoint)
@@ -171,7 +190,7 @@ vec3 getNormal(vec3 surfPoint)
 float rampLighting(vec3 normalDir, vec3 lightDir)
 {
     // Calculate the Lambertian reflectance
-    float lambert = max(dot(normalDir, lightDir), 0.0);
+    float lambert = max(dot(normalDir, -lightDir), 0.0);
 
     // Define the number of steps for the toon shading
     int steps = 4;
@@ -181,9 +200,51 @@ float rampLighting(vec3 normalDir, vec3 lightDir)
 
     return toon;
 }
+float getHardShadow(Ray ray, float mint, float tmax)
+{
+    float t = mint;
+
+    for (int i = 0; i < 16; i++)
+    {
+        vec3 vec = ray.origin + ray.direction * t;
+        float h = getSurface(vec).distanceToSurface;
+
+        if (h < 0.001) {
+            return 0.0; // Shadowed
+        }
+
+        t += h; // Move to the next step along the ray
+        if (t > tmax) {
+            break; // Exit if the max distance is exceeded
+        }
+    }
+
+    return 1.0; // Fully lit if no occlusion found
+}
+float getSoftShadow(Ray ray, float mint, float tmax)
+{
+    float res = 1.0;
+    float t = mint;
+
+    for (int i = 0; i < 16; i++)
+    {
+        vec3 vec = ray.origin + ray.direction * t;
+        float h = getSurface(vec).distanceToSurface;
+        res = min(res, 8.0 * h / t);
+        t += clamp(h, 0.02, 0.10);
+        if (h < 0.001 || t > tmax) break;
+    }
+
+    return clamp(res, 0.0, 1.0);
+}
 vec4 getPixelColor(vec3 lightDir, Surface surface, vec3 surfPoint, vec3 normal)
 {
     float diffuseMask = max(0.1, rampLighting(normal, lightDir));
+    Ray shadowRay = createRay(surfPoint + normal * SURF_DIST * 10.0, -lightDir);
+    //Ray shadowRay = createRay(lightPosition, lightDir);
+    //diffuseMask *= max(getSoftShadow(shadowRay, 0.02, 8.0), 0.1);
+    diffuseMask *= max(getHardShadow(shadowRay, 0.02, 8.0), 0.1);
+
     return diffuseMask * surface.diffuse;
 }
 
@@ -196,18 +257,21 @@ void main() {
     vec2 uv = (vec2(id) / vec2(width, height)) * 2.0 - 1.0;
 
     Ray ray = createCameraRay(uv);
-    Surface closestSurface = rayMarch(ray);
+    Surface closestSurface = rayMarch(ray, false);
     vec3 surfPoint = ray.origin + ray.direction * closestSurface.distanceToSurface;
 
-    vec4 color = vec4(0.0,0.0,0.0,1.0);
-    if (closestSurface.distanceToSurface < MAX_DIST) {
-        color = closestSurface.diffuse;
-        
+    float outValue = 0.0;
+
+    vec4 color = vec4(1.0,1.0,1.0,1.0);
+    if (closestSurface.distanceToSurface < MAX_DIST && closestSurface.outline <= 0.9) {
+        //color = closestSurface.diffuse;
         color = getPixelColor(lightDirection.xyz, closestSurface, surfPoint, getNormal(surfPoint));
+    } else if (closestSurface.outline > 0.9) {
+        color = vec4(0.0,0.0,0.0,1.0);
     }
 
     ResultData data;
-    data.worldPosition = vec3(id.x,id.y,closestSurface.distanceToSurface);
+    data.worldPosition = vec3(id.x,id.y,outValue);
     results[id.y*size.x+id.x] = data;
 
     imageStore(destTex, id, vec4(color.xyz,1.0)); 

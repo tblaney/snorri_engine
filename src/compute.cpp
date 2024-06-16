@@ -59,7 +59,7 @@ std::vector<ResultData> ComputeShader::retrieveResults(int numElements) {
 void ComputeShader::printResults(std::vector<ResultData>& results) {
     std::cout << "Retrieved Results:" << std::endl;
     for (const auto& result : results) {
-        if (result.worldPosition.z < 300)
+        if (result.worldPosition.z > 0)
             std::cout << "Position: " << result.worldPosition.x << ", " << result.worldPosition.y << ", " << result.worldPosition.z << std::endl;
     }
 }

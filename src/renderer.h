@@ -13,6 +13,7 @@ private:
     unsigned int texture;
     Shader shader;
     ComputeShader compute;
+    float outlineWidth;
 
 public:
     Renderer(Object* parent);

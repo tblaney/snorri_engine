@@ -24,6 +24,10 @@ Renderer::~Renderer() {
 
 void Renderer::loadFromJson(const nlohmann::json& json) {
 
+    outlineWidth = 0.1f;
+    if (json.contains("outline_width"))
+        outlineWidth = json["outline_width"];
+
     shader.setShaderPaths(getAssetPath(json["vert_shader"]).string(), 
         getAssetPath(json["frag_shader"]).string());
     compute.setShaderPaths(getAssetPath(json["compute_shader"]).string(),
@@ -114,6 +118,7 @@ void Renderer::setupComputeData(Camera* camera, Light* light) {
     compute.setFloat("time", Time::since);
     compute.setVec3("lightDirection", light->getDirection());
     compute.setVec3("lightPosition", light->getPosition());
+    compute.setFloat("outlineWidth", outlineWidth);
 }
 
 // Render function
@@ -127,7 +132,7 @@ void Renderer::render(Camera* cam, Light* light) {
     compute.setTexture(texture, 1);  // Binding the texture to image unit 1
     compute.dispatch(640, 360, 1);
 
-    std::vector<ResultData> results = compute.retrieveResults(320);
+    std::vector<ResultData> results = compute.retrieveResults(640*320);
     //compute.printResults(results);
     shader.use();
 

@@ -46,7 +46,7 @@ glm::mat4 Point::getModelMatrix() const {
 
 glm::vec3 Point::getFrontDirection() const {
     glm::vec3 front;
-    front.x = -cos(glm::radians(rotation_.y)) * sin(glm::radians(rotation_.z));
+    front.x = sin(glm::radians(rotation_.y));
     front.y = sin(glm::radians(rotation_.x));
     front.z = cos(glm::radians(rotation_.x)) * cos(glm::radians(rotation_.y));
     return glm::normalize(front);

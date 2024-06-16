@@ -1,4 +1,5 @@
 #include "compute.h"
+#include "log.h"
 #include "surface/surface.h"
 #include <glm/gtc/type_ptr.hpp>
 
@@ -6,8 +7,10 @@ ComputeShader::ComputeShader() {
         
 }
 
-void ComputeShader::setShaderPath(const std::string& filePath) {
+void ComputeShader::setShaderPaths(const std::string& filePath, const std::string& sdfPath) {
     std::string shaderCode = readShaderFile(filePath);
+    std::string sdfCode = readShaderFile(sdfPath);
+    shaderCode = sdfCode + "\n" + shaderCode;
     const char* shaderSource = shaderCode.c_str();
 
     // Create the shader
@@ -131,6 +134,8 @@ void ComputeShader::createBuffer(GLuint* buffer, GLsizeiptr size, const void* da
 }
 
 void ComputeShader::setupSurfaceBuffer(const std::vector<SurfaceData>& surfaces) {
+    //Log::console("Setting up surface buffer with " + std::to_string(surfaces.size()) + " surfaces.");
+    //Log::console("Setting up surface buffer, shapeType: " + std::to_string(surfaces[0].shapeType));
     createBuffer(&ssbo, surfaces.size() * sizeof(SurfaceData), surfaces.data(), GL_STATIC_DRAW);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, ssbo); // Bind to binding point 0
 }

@@ -52,13 +52,13 @@ void Object::loadFromJson(const nlohmann::json& json) {
 
 // Load Point data from JSON
 void Object::loadPoint(const nlohmann::json& json) {
-    if (json.contains("position")  && json["rotation"].is_array() && json["rotation"].size() == 3) {
+    if (json.contains("position")  && json["position"].is_array() && json["position"].size() == 3) {
         point.setPosition(glm::vec3(json["position"][0], json["position"][1], json["position"][2]));
     }
     if (json.contains("rotation") && json["rotation"].is_array() && json["rotation"].size() == 3) {
         point.setRotation(glm::vec3(json["rotation"][0], json["rotation"][1], json["rotation"][2]));
     }
-    if (json.contains("scale")  && json["rotation"].is_array() && json["rotation"].size() == 3) {
+    if (json.contains("scale")  && json["scale"].is_array() && json["scale"].size() == 3) {
         point.setScale(glm::vec3(json["scale"][0], json["scale"][1], json["scale"][2]));
     }
 }

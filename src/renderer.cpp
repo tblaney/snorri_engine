@@ -17,8 +17,10 @@ Renderer::Renderer(Object* parent)
 
 void Renderer::loadFromJson(const nlohmann::json& json) {
 
-    shader.setShaderPaths(getAssetPath(json["vert_shader"]).string(), getAssetPath(json["frag_shader"]).string());
-    compute.setShaderPath(getAssetPath(json["compute_shader"]).string());
+    shader.setShaderPaths(getAssetPath(json["vert_shader"]).string(), 
+        getAssetPath(json["frag_shader"]).string());
+    compute.setShaderPaths(getAssetPath(json["compute_shader"]).string(),
+        getAssetPath(json["sdf_shader"]).string());
 
     float vertices[] = {
         // positions       // texture coords
@@ -92,9 +94,7 @@ void Renderer::createSolidColorTexture(int width, int height, const glm::vec3& c
 void Renderer::setupSurfaceBuffer() {
     std::vector<SurfaceData> surfaceDatas;
     for (auto& surface : SurfaceManager::activeSurfaces) {
-        SurfaceData data;
-        data.position = surface->getPosition(); // Ensure Surface has a getPosition() method
-        surfaceDatas.push_back(data);
+        surfaceDatas.push_back(surface->getData());
     }
     // Log::console("Setting up surface buffer with " + std::to_string(surfaceDatas.size()) + " surfaces.");
     compute.setupSurfaceBuffer(surfaceDatas);

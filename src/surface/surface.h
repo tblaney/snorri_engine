@@ -6,7 +6,14 @@
 #include <glm/glm.hpp>  // Ensure you have included the GLM library for vector types
 
 struct SurfaceData {
-    glm::vec3 position;  // Position of the surface
+    glm::vec4 position;  // Position of the surface
+    glm::vec4 rotation;
+    glm::vec4 scale;
+    glm::vec4 diffuse;
+    int shapeType;
+    int blendType;
+    float blendStrength;
+    float pad;
 };
 
 class Surface : public Component, public std::enable_shared_from_this<Surface> {
@@ -17,10 +24,15 @@ public:
     void loadFromJson(const nlohmann::json& json) override;
     void update() override;
 
+    SurfaceData getData();
+
     glm::vec3 getPosition();
 
 private:
-    int type;
+    glm::vec3 color;
+    int shapeType;
+    int blendType;
+    float blendStrength;
 };
 
 #endif // SURFACE_H

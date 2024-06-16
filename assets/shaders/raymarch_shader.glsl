@@ -1,8 +1,14 @@
-#version 430
 layout(local_size_x = 8, local_size_y = 8) in;
 
 struct SurfaceData {
-    vec3 position;
+    vec4 position;
+    vec4 rotation;
+    vec4 scale;
+    vec4 diffuse;
+    int shapeType;
+    int blendType;
+    float blendStrength;
+    float pad;
 };
 layout(std430, binding = 0) buffer Surfaces {
     SurfaceData surfaces[];
@@ -55,11 +61,8 @@ Ray createCameraRay(vec2 uv) {
 
     return createRay(origin, direction);
 }
-float sdSphere(vec3 p, vec3 center, float radius) {
-    return length(p - center) - radius;
-}
 float getSurfaceDistance(vec3 p, SurfaceData surface) {
-    float d1 = sdSphere(p, vec3(0.0,0.0,0.0), 0.5);
+    float d1 = sdSphere(p, 0.5);
     return d1;
 }
 Surface getSurface(vec3 position) {
@@ -72,7 +75,7 @@ float rayMarch(Ray ray) {
     for (int i = 0; i < MAX_STEPS; i++)
     {
         vec3 pos = ray.origin + ray.direction*distanceToSurface;
-        float d = sdSphere(pos, surfaces[0].position, 0.75);
+        float d = sdEllipsoid(pos, surfaces[0].scale.xyz);
 
         if (d < SURF_DIST || distanceToSurface > MAX_DIST) break;
 
@@ -104,7 +107,7 @@ void main() {
     ResultData data;
     //data.worldPosition = vec3(1,1,1);
     //data.worldPosition = vec3(id.x,id.y,sdSphere(ray.origin + ray.direction*3, vec3(0,0,0), 1.0));
-    data.worldPosition = vec3(id.x,id.y,closestSurface);
+    data.worldPosition = vec3(id.x,id.y,surfaces[0].shapeType);
     results[id.y*size.x+id.x] = data;
 
     imageStore(destTex, id, vec4(color.xyz,1.0)); 

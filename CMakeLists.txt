@@ -25,6 +25,8 @@ set(SOURCES
     src/window.cpp
     src/shader.cpp
     src/compute.cpp
+    src/computesurface.cpp
+    src/computephysics.cpp
     src/scene.cpp
     src/renderer.cpp
     src/log.cpp
@@ -38,6 +40,8 @@ set(SOURCES
     src/camera/camera.cpp
     src/time.cpp
     src/light.cpp
+    src/physics/body.cpp
+    src/physics/physicsmanager.cpp
 )
 
 # Add executable

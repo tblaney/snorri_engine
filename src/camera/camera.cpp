@@ -78,10 +78,10 @@ void Camera::update() {
 
 void Camera::refreshMatrices() {
     glm::vec3 position = getPoint().getPosition();
-    //glm::vec3 front = getPoint().getFrontDirection();
-    //glm::vec3 up = getPoint().getUpDirection();
-    glm::vec3 front(0.0f, 0.0f, -1.0f);
-    glm::vec3 up(0.0f, 1.0f, 0.0f);
+    glm::vec3 front = getPoint().getFrontDirection();
+    glm::vec3 up = getPoint().getUpDirection();
+    //glm::vec3 front(0.0f, 0.0f, -1.0f);
+    //glm::vec3 up(0.0f, 1.0f, 0.0f);
     viewMatrix = glm::lookAt(position, position + front, up);
     projectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
     cameraToWorldMatrix = glm::inverse(viewMatrix);

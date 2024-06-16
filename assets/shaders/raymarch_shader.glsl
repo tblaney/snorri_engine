@@ -71,6 +71,8 @@ float getSurfaceDistance(vec3 p, SurfaceData surface) {
         return sdEllipsoid(p, surface.scale.xyz);
     } else if (surface.shapeType == 1) {
         return sdBox(p, surface.scale.xyz/2.0);
+    } else if (surface.shapeType == 2) {
+        return sdPlane(p, vec3(0,1,0), 0);
     }
     float d1 = sdSphere(p, 0.5);
     return d1;
@@ -88,12 +90,10 @@ Surface blend(Surface s1, Surface s2, float blendStrength, int blendMode)
     if (blendMode == 1)
     {
         s1.distanceToSurface = opSmoothUnion(s1.distanceToSurface, s2.distanceToSurface, blendStrength);
-        s1.diffuse = vec4(
-            opSmoothUnion(s1.diffuse.x, s2.diffuse.x, blendStrength),
-            opSmoothUnion(s1.diffuse.y, s2.diffuse.y, blendStrength),
-            opSmoothUnion(s1.diffuse.z, s2.diffuse.z, blendStrength),
-            1.0
-        );
+        if (s1.distanceToSurface >= s2.distanceToSurface)
+        {
+            s1.diffuse = s2.diffuse;
+        }
     }
     return s1;
 }

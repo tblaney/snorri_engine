@@ -135,11 +135,6 @@ void ComputeShader::createBuffer(GLuint* buffer, GLsizeiptr size, const void* da
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 
-void ComputeShader::setupSurfaceBuffer(const std::vector<SurfaceData>& surfaces) {
-    createBuffer(&ssbo, surfaces.size() * sizeof(SurfaceData), surfaces.data(), GL_STATIC_DRAW);
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, ssbo); // Bind to binding point 0
-}
-
 void ComputeShader::setupResultBuffer(int numElements) {
     createBuffer(&ssboResult, numElements * sizeof(ResultData), nullptr, GL_DYNAMIC_READ);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, ssboResult);  // Assuming binding = 2 for results

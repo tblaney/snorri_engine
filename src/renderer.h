@@ -1,7 +1,7 @@
 #pragma once
 
 #include "shader.h"
-#include "compute.h"
+#include "computesurface.h"
 #include "camera/camera.h"
 #include "light.h"
 #include "object/point.h"
@@ -12,7 +12,7 @@ private:
     unsigned int VAO, VBO, EBO;
     unsigned int texture;
     Shader shader;
-    ComputeShader compute;
+    ComputeShaderSurface compute;
     float outlineWidth;
 
 public:

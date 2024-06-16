@@ -24,11 +24,11 @@ public:
     void setShaderPaths(const std::string& computePath, const std::string& sdfPath);
 
     void use();
-    void dispatch(int width, int height, int depth);
+    virtual void dispatch(int width, int height, int depth);
+
     void setTexture(GLuint textureID, GLuint unit);
 
-    void setupSurfaceBuffer(const std::vector<SurfaceData>& surfaces);
-    void setupResultBuffer(int numElements);
+    virtual void setupResultBuffer(int numElements);
     std::vector<ResultData> retrieveResults(int numElements);
     void printResults(std::vector<ResultData>& results);
 
@@ -38,10 +38,9 @@ public:
     void setMat4(const std::string& name, const glm::mat4 &mat);
     void setVec3(const std::string& name, const glm::vec3& value);
 
-private:
+protected:
     std::string readShaderFile(const std::string& filePath);
     void checkCompileErrors(GLuint shader, std::string type);
-
     void createBuffer(GLuint* buffer, GLsizeiptr size, const void* data, GLenum usage);
     GLuint ssbo;  // Declare the Shader Storage Buffer Object identifier
     GLuint ssboResult;  // Declare the Shader Storage Buffer Object identifier

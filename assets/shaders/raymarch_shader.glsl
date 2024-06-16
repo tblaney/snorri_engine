@@ -76,12 +76,10 @@ Surface blend(Surface s1, Surface s2, float blendStrength, int blendMode)
     if (blendMode == 0)
     {
         s1.distanceToSurface = opUnion(s1.distanceToSurface, s2.distanceToSurface);
-        s1.diffuse = vec4(
-            opUnion(s1.diffuse.x, s2.diffuse.x),
-            opUnion(s1.diffuse.y, s2.diffuse.y),
-            opUnion(s1.diffuse.z, s2.diffuse.z),
-            1.0
-        );
+        if (s1.distanceToSurface >= s2.distanceToSurface)
+        {
+            s1.diffuse = s2.diffuse;
+        }
     }
     if (blendMode == 1)
     {
@@ -95,6 +93,36 @@ Surface blend(Surface s1, Surface s2, float blendStrength, int blendMode)
     }
     return s1;
 }
+// Rotation around the X-axis
+mat3 rotateX(float theta) {
+    float c = cos(theta);
+    float s = sin(theta);
+    return mat3(
+        vec3(1, 0, 0),
+        vec3(0, c, -s),
+        vec3(0, s, c)
+    );
+}
+// Rotation around the Y-axis
+mat3 rotateY(float theta) {
+    float c = cos(theta);
+    float s = sin(theta);
+    return mat3(
+        vec3(c, 0, s),
+        vec3(0, 1, 0),
+        vec3(-s, 0, c)
+    );
+}
+// Rotation around the Z-axis
+mat3 rotateZ(float theta) {
+    float c = cos(theta);
+    float s = sin(theta);
+    return mat3(
+        vec3(c, -s, 0),
+        vec3(s, c, 0),
+        vec3(0, 0, 1)
+    );
+}
 Surface getSurface(vec3 position) {
     Surface surface;
     surface.distanceToSurface = MAX_DIST;
@@ -104,7 +132,11 @@ Surface getSurface(vec3 position) {
         SurfaceData shape = surfaces[i];
         Surface shapeSurf;
         shapeSurf.diffuse = shape.diffuse;
-        shapeSurf.distanceToSurface = getSurfaceDistance(position, shape);
+        mat3 rotation = rotateX(-shape.rotation.x) * rotateY(-shape.rotation.y) * rotateZ(-shape.rotation.z);
+        vec3 pos = position - shape.position.xyz;
+        vec3 transformedPosition = rotation * (position - shape.position.xyz);
+
+        shapeSurf.distanceToSurface = getSurfaceDistance(transformedPosition, shape);
         surface = blend(surface, shapeSurf, shape.blendStrength, shape.blendType);
     }
     return surface;

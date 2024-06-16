@@ -41,8 +41,8 @@
                 }
             }
         },
-        "surface_test": {
-            "name": "surface_test",
+        "surface_test_01": {
+            "name": "surface_test_01",
             "point": {
                 "position": [0.0,0.0,0.0],
                 "rotation": [0.0,0.0,0.0],
@@ -51,6 +51,19 @@
             "components": {
                 "surface": {
                     "color": [195, 107, 28]
+                }
+            }
+        },
+        "surface_test_02": {
+            "name": "surface_test_02",
+            "point": {
+                "position": [0.0,2.0,0.0],
+                "rotation": [0.0,0.0,45.0],
+                "scale": [2.0,1.0,1.0]
+            },
+            "components": {
+                "surface": {
+                    "color": [53, 83, 195]
                 }
             }
         }

@@ -18,7 +18,7 @@ void Surface::loadFromJson(const nlohmann::json& json) {
     SurfaceManager::registerSurface(shared_from_this());
     
     if (json.contains("color")) {
-        color = glm::vec3(json["color"][0], json["color"][1], json["color"][2]);
+        color = glm::vec3(json["color"][0]/255.0, json["color"][1]/255.0, json["color"][2]/255.0);
     }
     if (json.contains("shape")) {
         shapeType = json["shape"];
@@ -39,14 +39,15 @@ SurfaceData Surface::getData() {
     SurfaceData data;
     const Point& p = getPoint();
     data.position = glm::vec4(p.getPosition(),1);
-    data.rotation = glm::vec4(p.getRotation(),1);
+    glm::vec3 rotationDegrees = p.getRotation();
+    data.rotation = glm::vec4(glm::radians(rotationDegrees), 1);
     data.scale = glm::vec4(p.getScale(),1);
     //std::cout << "Surface Scale: " << data.scale.x << ", " << data.scale.y << ", " << data.scale.z << std::endl;
     data.diffuse = glm::vec4(color,1);
     data.blendType = blendType;
-    data.shapeType = 20;
+    data.shapeType = shapeType;
     data.blendStrength = blendStrength;
-    data.pad = 0;
+    data.outline = 0;
     return data;
 }
 

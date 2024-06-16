@@ -8,7 +8,7 @@ struct SurfaceData {
     int shapeType;
     int blendType;
     float blendStrength;
-    float pad;
+    int outline;
 };
 layout(std430, binding = 0) buffer Surfaces {
     SurfaceData surfaces[];
@@ -30,6 +30,7 @@ struct Ray {
 };
 struct Surface {
     float distanceToSurface;
+    vec4 diffuse;
 };
 
 #define SURF_DIST 0.001
@@ -62,27 +63,68 @@ Ray createCameraRay(vec2 uv) {
     return createRay(origin, direction);
 }
 float getSurfaceDistance(vec3 p, SurfaceData surface) {
+    if (surface.shapeType == 0) {
+        return sdEllipsoid(p, surface.scale.xyz);
+    } else if (surface.shapeType == 1) {
+        return sdBox(p, surface.scale.xyz/2.0);
+    }
     float d1 = sdSphere(p, 0.5);
     return d1;
 }
+Surface blend(Surface s1, Surface s2, float blendStrength, int blendMode)
+{
+    if (blendMode == 0)
+    {
+        s1.distanceToSurface = opUnion(s1.distanceToSurface, s2.distanceToSurface);
+        s1.diffuse = vec4(
+            opUnion(s1.diffuse.x, s2.diffuse.x),
+            opUnion(s1.diffuse.y, s2.diffuse.y),
+            opUnion(s1.diffuse.z, s2.diffuse.z),
+            1.0
+        );
+    }
+    if (blendMode == 1)
+    {
+        s1.distanceToSurface = opSmoothUnion(s1.distanceToSurface, s2.distanceToSurface, blendStrength);
+        s1.diffuse = vec4(
+            opSmoothUnion(s1.diffuse.x, s2.diffuse.x, blendStrength),
+            opSmoothUnion(s1.diffuse.y, s2.diffuse.y, blendStrength),
+            opSmoothUnion(s1.diffuse.z, s2.diffuse.z, blendStrength),
+            1.0
+        );
+    }
+    return s1;
+}
 Surface getSurface(vec3 position) {
-    Surface surface = {MAX_DIST};
-    surface.distanceToSurface = getSurfaceDistance(position, surfaces[0]);
+    Surface surface;
+    surface.distanceToSurface = MAX_DIST;
+    surface.diffuse = vec4(1,1,1,1);
+    for (int i = 0; i < numSurfaces; i++)
+    {
+        SurfaceData shape = surfaces[i];
+        Surface shapeSurf;
+        shapeSurf.diffuse = shape.diffuse;
+        shapeSurf.distanceToSurface = getSurfaceDistance(position, shape);
+        surface = blend(surface, shapeSurf, shape.blendStrength, shape.blendType);
+    }
     return surface;
 }
-float rayMarch(Ray ray) {
+Surface rayMarch(Ray ray) {
+    Surface surface;
     float distanceToSurface = 0.0;
     for (int i = 0; i < MAX_STEPS; i++)
     {
         vec3 pos = ray.origin + ray.direction*distanceToSurface;
-        float d = sdEllipsoid(pos, surfaces[0].scale.xyz);
+        Surface surf = getSurface(pos);
+        surface.diffuse = surf.diffuse;
+        float d = surf.distanceToSurface;
 
         if (d < SURF_DIST || distanceToSurface > MAX_DIST) break;
 
         distanceToSurface += d;
     }
-
-    return distanceToSurface;
+    surface.distanceToSurface = distanceToSurface;
+    return surface;
 }
 
 void main() {
@@ -94,19 +136,14 @@ void main() {
     vec2 uv = (vec2(id) / vec2(width, height)) * 2.0 - 1.0;
 
     Ray ray = createCameraRay(uv);
-    float closestSurface = rayMarch(ray);
+    Surface closestSurface = rayMarch(ray);
 
-    //bool isSurfaceExists = closestSurface.distanceToSurface < MAX_DIST;
+    vec4 color = vec4(0.0,0.0,0.0,1.0);
+    if (closestSurface.distanceToSurface < MAX_DIST) {
+        color = closestSurface.diffuse;
+    }
 
-    vec4 color = vec4(0.0,1.0,0.0,1.0);
-    if (closestSurface < MAX_DIST)
-        color = vec4(1.0,0.0,0.0,1.0);
-
-    //results[id.y * size.x + id.x].worldPosition = vec3(id.x,id.y,closestSurface.distanceToSurface);
-    //results[id.y * size.x + id.x].worldPosition = vec3(1,1,closestSurface.distanceToSurface);
     ResultData data;
-    //data.worldPosition = vec3(1,1,1);
-    //data.worldPosition = vec3(id.x,id.y,sdSphere(ray.origin + ray.direction*3, vec3(0,0,0), 1.0));
     data.worldPosition = vec3(id.x,id.y,surfaces[0].shapeType);
     results[id.y*size.x+id.x] = data;
 

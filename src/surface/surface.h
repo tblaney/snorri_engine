@@ -13,7 +13,7 @@ struct SurfaceData {
     int shapeType;
     int blendType;
     float blendStrength;
-    float pad;
+    int outline;
 };
 
 class Surface : public Component, public std::enable_shared_from_this<Surface> {

@@ -15,6 +15,13 @@ Renderer::Renderer(Object* parent)
     : Component(parent), shader(), compute() {
 }
 
+Renderer::~Renderer() {
+    glDeleteVertexArrays(1, &VAO);  // Delete the VAO
+    glDeleteBuffers(1, &VBO);       // Delete the VBO
+    glDeleteBuffers(1, &EBO);       // Delete the EBO
+    glDeleteTextures(1, &texture);  // Delete the texture
+}
+
 void Renderer::loadFromJson(const nlohmann::json& json) {
 
     shader.setShaderPaths(getAssetPath(json["vert_shader"]).string(), 

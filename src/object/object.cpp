@@ -26,6 +26,11 @@ std::string Object::getName() const {
     return name;
 }
 
+Object::~Object() {
+    // Log the destruction of the object if necessary
+    Log::console("Destroying Object: " + name);
+}
+
 // Setter
 void Object::setPoint(const Point& point) {
     this->point = point;

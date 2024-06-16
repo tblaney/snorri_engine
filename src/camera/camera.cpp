@@ -16,7 +16,7 @@ Camera::Camera(Object* parent, glm::vec3 startFront, glm::vec3 startUp, float fo
     refreshMatrices();
 }
 Camera::Camera(Object* parent) 
-    : Component(parent) {
+    : Component(parent), isMain(false) {
     glm::vec3 front(0.0f, 0.0f, -1.0f);
     glm::vec3 up(0.0f, 1.0f, 0.0f);
     fov = 45.0f;
@@ -27,14 +27,21 @@ Camera::Camera(Object* parent)
     refreshMatrices();
 }
 
+Camera::~Camera() {
+    if (isMain)
+        mainCamera = nullptr;
+}
+
 void Camera::updateAspectRatio(float aspectRatio) {
     this->aspectRatio = aspectRatio;
     projectionMatrix = glm::perspective(glm::radians(45.0f), aspectRatio, 0.1f, 100.0f); // Example FOV, near, and far planes
 }
 
 void Camera::loadFromJson(const nlohmann::json& json) {
-    if (json.contains("is_main") && json["is_main"] == true)
+    if (json.contains("is_main") && json["is_main"] == true) {
+        isMain = true;
         setMainCamera(this);
+    }
 
     // Implement loading logic, for example:
     if (json.contains("front") && json["front"].is_array() && json["front"].size() == 3) {

@@ -40,7 +40,9 @@ void Shader::setShaderPaths(const std::string& vertexPath, const std::string& fr
 }
 
 Shader::~Shader() {
-    glDeleteProgram(program);
+    if (program != 0) {
+        glDeleteProgram(program);
+    }
 }
 
 void Shader::use() const {

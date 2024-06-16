@@ -30,7 +30,9 @@ void ComputeShader::setShaderPaths(const std::string& filePath, const std::strin
 }
 
 ComputeShader::~ComputeShader() {
-    glDeleteProgram(programID);
+    glDeleteProgram(programID);  // Delete the shader program
+    glDeleteBuffers(1, &ssbo);   // Delete the SSBO for surfaces
+    glDeleteBuffers(1, &ssboResult); // Delete the SSBO for result data
 }
 
 void ComputeShader::use() {
@@ -134,8 +136,6 @@ void ComputeShader::createBuffer(GLuint* buffer, GLsizeiptr size, const void* da
 }
 
 void ComputeShader::setupSurfaceBuffer(const std::vector<SurfaceData>& surfaces) {
-    //Log::console("Setting up surface buffer with " + std::to_string(surfaces.size()) + " surfaces.");
-    //Log::console("Setting up surface buffer, shapeType: " + std::to_string(surfaces[0].shapeType));
     createBuffer(&ssbo, surfaces.size() * sizeof(SurfaceData), surfaces.data(), GL_STATIC_DRAW);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, ssbo); // Bind to binding point 0
 }

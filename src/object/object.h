@@ -17,6 +17,8 @@ public:
     Object(const Point& point);
     Object(const nlohmann::json& json); // New constructor
 
+    ~Object();
+
     // Getters
     Point& getPoint();           // Non-const version to modify Point directly
     const Point& getPoint() const; // Const version for read-only access

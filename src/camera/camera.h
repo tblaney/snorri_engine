@@ -11,6 +11,7 @@ public:
 
     Camera(Object* parent, glm::vec3 startFront, glm::vec3 startUp, float fov, float aspectRatio, float nearPlane, float farPlane);
     Camera(Object* parent);
+    ~Camera();
     void updateAspectRatio(float aspectRatio);
 
     void loadFromJson(const nlohmann::json& json) override;
@@ -34,4 +35,5 @@ private:
     glm::vec3 front;
     glm::vec3 up;
     static Camera* mainCamera;  // Static pointer to the main camera
+    bool isMain;
 };

@@ -16,6 +16,7 @@ private:
 
 public:
     Renderer(Object* parent);
+    ~Renderer() override;
 
     void loadFromJson(const nlohmann::json& json) override;
     void update() override;

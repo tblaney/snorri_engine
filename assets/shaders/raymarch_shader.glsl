@@ -158,6 +158,34 @@ Surface rayMarch(Ray ray) {
     surface.distanceToSurface = distanceToSurface;
     return surface;
 }
+vec3 getNormal(vec3 surfPoint)
+{
+    float epsilon = 0.0001;
+    float centerDistance = getSurface(surfPoint).distanceToSurface;
+    float xDistance = getSurface(surfPoint + vec3(epsilon, 0, 0)).distanceToSurface;
+    float yDistance = getSurface(surfPoint + vec3(0, epsilon, 0)).distanceToSurface;
+    float zDistance = getSurface(surfPoint + vec3(0, 0, epsilon)).distanceToSurface;
+    vec3 normal = normalize(vec3(xDistance, yDistance, zDistance) - centerDistance);
+    return normal;
+}
+float rampLighting(vec3 normalDir, vec3 lightDir)
+{
+    // Calculate the Lambertian reflectance
+    float lambert = max(dot(normalDir, lightDir), 0.0);
+
+    // Define the number of steps for the toon shading
+    int steps = 4;
+
+    // Quantize the lambert value into discrete steps
+    float toon = floor(lambert * steps) / steps;
+
+    return toon;
+}
+vec4 getPixelColor(vec3 lightDir, Surface surface, vec3 surfPoint, vec3 normal)
+{
+    float diffuseMask = max(0.1, rampLighting(normal, lightDir));
+    return diffuseMask * surface.diffuse;
+}
 
 void main() {
     ivec2 id = ivec2(gl_GlobalInvocationID.xy);
@@ -169,14 +197,17 @@ void main() {
 
     Ray ray = createCameraRay(uv);
     Surface closestSurface = rayMarch(ray);
+    vec3 surfPoint = ray.origin + ray.direction * closestSurface.distanceToSurface;
 
     vec4 color = vec4(0.0,0.0,0.0,1.0);
     if (closestSurface.distanceToSurface < MAX_DIST) {
         color = closestSurface.diffuse;
+        
+        color = getPixelColor(lightDirection.xyz, closestSurface, surfPoint, getNormal(surfPoint));
     }
 
     ResultData data;
-    data.worldPosition = vec3(id.x,id.y,surfaces[0].shapeType);
+    data.worldPosition = vec3(id.x,id.y,closestSurface.distanceToSurface);
     results[id.y*size.x+id.x] = data;
 
     imageStore(destTex, id, vec4(color.xyz,1.0)); 

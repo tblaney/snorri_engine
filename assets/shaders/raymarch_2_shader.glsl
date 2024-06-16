@@ -68,7 +68,7 @@ void main() {
     vec4 worldSpacePosition = cameraToWorld * eyeSpacePosition;
     vec3 worldPosition = worldSpacePosition.xyz;
 
-    Ray cameraRay = createCameraRay(ndc);
+    Ray cameraRay = createCameraRay(uv);
 
     results[id.y * size.x + id.x].worldPosition = worldPosition;
 

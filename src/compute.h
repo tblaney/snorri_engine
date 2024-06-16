@@ -10,6 +10,7 @@
 
 struct ResultData {
     glm::vec3 worldPosition;  // Assuming this is the structure used in the SSBO
+    float pad;
 };
 
 class ComputeShader {
@@ -27,8 +28,8 @@ public:
     void setTexture(GLuint textureID, GLuint unit);
 
     void setupSurfaceBuffer(const std::vector<SurfaceData>& surfaces);
-    void setupResultBuffer(size_t numElements);
-    std::vector<ResultData> retrieveResults(size_t numElements);
+    void setupResultBuffer(int numElements);
+    std::vector<ResultData> retrieveResults(int numElements);
     void printResults(std::vector<ResultData>& results);
 
     void setInt(const std::string& name, int value);

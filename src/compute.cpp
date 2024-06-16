@@ -34,15 +34,8 @@ void ComputeShader::use() {
     glUseProgram(programID);
 }
 
-void ComputeShader::setupResultBuffer(size_t numElements) {
-    glGenBuffers(1, &ssboResult);
-    glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssboResult);
-    glBufferData(GL_SHADER_STORAGE_BUFFER, numElements * sizeof(ResultData), nullptr, GL_DYNAMIC_READ);
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, ssboResult);  // Assuming binding = 2 for results
-    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
-}
 
-std::vector<ResultData> ComputeShader::retrieveResults(size_t numElements) {
+std::vector<ResultData> ComputeShader::retrieveResults(int numElements) {
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssboResult);
     glMemoryBarrier(GL_BUFFER_UPDATE_BARRIER_BIT);  // Ensure all writes are finished
 
@@ -61,12 +54,13 @@ std::vector<ResultData> ComputeShader::retrieveResults(size_t numElements) {
 void ComputeShader::printResults(std::vector<ResultData>& results) {
     std::cout << "Retrieved Results:" << std::endl;
     for (const auto& result : results) {
-        std::cout << "Position: " << result.worldPosition.x << ", " << result.worldPosition.y << ", " << result.worldPosition.z << std::endl;
+        //if (result.worldPosition.z < 300)
+            std::cout << "Position: " << result.worldPosition.x << ", " << result.worldPosition.y << ", " << result.worldPosition.z << std::endl;
     }
 }
 
 void ComputeShader::dispatch(int width, int height, int depth) {
-    glDispatchCompute((GLuint)ceil(width / 16.0f), (GLuint)ceil(height / 16.0f), depth);
+    glDispatchCompute((GLuint)ceil(width / 8.0f), (GLuint)ceil(height / 8.0f), depth);
     glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
 }
 
@@ -139,4 +133,9 @@ void ComputeShader::createBuffer(GLuint* buffer, GLsizeiptr size, const void* da
 void ComputeShader::setupSurfaceBuffer(const std::vector<SurfaceData>& surfaces) {
     createBuffer(&ssbo, surfaces.size() * sizeof(SurfaceData), surfaces.data(), GL_STATIC_DRAW);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, ssbo); // Bind to binding point 0
+}
+
+void ComputeShader::setupResultBuffer(int numElements) {
+    createBuffer(&ssboResult, numElements * sizeof(ResultData), nullptr, GL_DYNAMIC_READ);
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, ssboResult);  // Assuming binding = 2 for results
 }

@@ -71,10 +71,6 @@ void Camera::update() {
 
 void Camera::refreshMatrices() {
     glm::vec3 position = getPoint().getPosition();
-    //std::cout << "camera position: (" 
-    //          << position.x << ", " 
-    //          << position.y << ", " 
-    //          << position.z << ")" << std::endl;
     //glm::vec3 front = getPoint().getFrontDirection();
     //glm::vec3 up = getPoint().getUpDirection();
     glm::vec3 front(0.0f, 0.0f, -1.0f);
@@ -83,15 +79,6 @@ void Camera::refreshMatrices() {
     projectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
     cameraToWorldMatrix = glm::inverse(viewMatrix);
     cameraInverseProjectionMatrix = glm::inverse(projectionMatrix);
-    
-    //std::cout << "Camera To World Matrix:" << std::endl;
-    //for (int i = 0; i < 4; ++i) {
-    //    for (int j = 0; j < 4; ++j) {
-    //        std::cout << cameraToWorldMatrix[i][j] << " ";
-    //    }
-    //    std::cout << std::endl;
-    //}
-    
 }
 
 bool camera_registered = []() {

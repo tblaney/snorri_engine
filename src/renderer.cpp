@@ -120,9 +120,8 @@ void Renderer::render(Camera* cam, Light* light) {
     compute.setTexture(texture, 1);  // Binding the texture to image unit 1
     compute.dispatch(640, 360, 1);
 
-    std::vector<ResultData> results = compute.retrieveResults(1024);
-    compute.printResults(results);  // Print the results
-
+    std::vector<ResultData> results = compute.retrieveResults(320);
+    compute.printResults(results);
     shader.use();
 
     glBindTexture(GL_TEXTURE_2D, texture);

@@ -72,7 +72,7 @@ float rayMarch(Ray ray) {
     for (int i = 0; i < MAX_STEPS; i++)
     {
         vec3 pos = ray.origin + ray.direction*distanceToSurface;
-        float d = sdSphere(pos, vec3(0,0,0), 0.75);
+        float d = sdSphere(pos, surfaces[0].position, 0.75);
 
         if (d < SURF_DIST || distanceToSurface > MAX_DIST) break;
 

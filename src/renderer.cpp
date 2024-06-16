@@ -121,7 +121,7 @@ void Renderer::render(Camera* cam, Light* light) {
     compute.dispatch(640, 360, 1);
 
     std::vector<ResultData> results = compute.retrieveResults(320);
-    compute.printResults(results);
+    //compute.printResults(results);
     shader.use();
 
     glBindTexture(GL_TEXTURE_2D, texture);

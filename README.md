@@ -2,6 +2,8 @@
 
 This repository contains the work-in-progress code for a custom C++ game engine that utilizes Signed Distance Functions (SDFs) instead of traditional meshes, with Raymarching as the rendering technique.
 
+<img src="imgs/shape_render.png" alt="Example Scene">
+
 ## Project Overview
 
 The goal of this project is to develop a custom game engine that fully employs SDFs for rendering complex 3D scenes. By using Raymarching, the engine calculates and renders scenes directly from distance fields, bypassing traditional polygon-based rendering methods. This approach allows for unique rendering effects and potentially more efficient handling of complex shapes and lighting phenomena.

@@ -13,6 +13,8 @@ public:
 
     virtual void loadFromJson(const nlohmann::json& json) = 0;
     virtual void update() {}
+    virtual void updatePhysics() {}
+    virtual void updateRender() {}
 
 protected:
     Object* parent;

@@ -9,6 +9,11 @@ Scene::Scene(const std::string& title)
 void Scene::update() {
     origin.update();
 }
-
+void Scene::updatePhysics() {
+    origin.updatePhysics();
+}
+void Scene::updateRender() {
+    origin.updateRender();
+}
 Scene::~Scene() {
 }

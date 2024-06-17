@@ -49,7 +49,7 @@ BodyBox& Body::getBodyBox() {
     return bodyBox;
 }
 
-void Body::update() {
+void Body::updatePhysics() {
     if (isKinematic)
         return;
 

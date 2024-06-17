@@ -11,7 +11,10 @@ public:
     ~Scene();
 
     void update();
-    
+
+    void updatePhysics();
+    void updateRender();
+        
 private:
     Object origin;
 };

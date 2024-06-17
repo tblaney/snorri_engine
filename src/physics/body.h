@@ -12,7 +12,7 @@ public:
     ~Body();
 
     void loadFromJson(const nlohmann::json& json) override;
-    void update() override;
+    void updatePhysics() override;
 
     glm::vec3 getVelocity();
     glm::vec3 getPosition();

@@ -11,7 +11,10 @@
             "frag_shader": "shaders/fragment_shader.glsl",
             "compute_shader": "shaders/raymarch_shader.glsl",
             "outline_width": 0.05,
-            "sdf_shader": "shaders/sdf.glsl"
+            "sdf_shader": "shaders/sdf.glsl",
+            "width": 640,
+            "height": 360,
+            "depth": 0.0
         }
     },
     "children": {
@@ -33,7 +36,7 @@
             "name": "light",
             "point": {
                 "position": [0.0,20.0,10.0],
-                "rotation": [-45.0,45.0,0.0],
+                "rotation": [-45.0,125.0,0.0],
                 "scale": [1.0,1.0,1.0]
             },
             "components": {
@@ -56,7 +59,7 @@
                     "blend_strength": 1.0
                 },
                 "body": {
-                    "size": [0.1,0.1,0.1]
+                    "size": [1.0,1.0,1.0]
                 }
             }
         },

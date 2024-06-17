@@ -14,13 +14,15 @@ private:
     Shader shader;
     ComputeShaderSurface compute;
     float outlineWidth;
+    int width;
+    int height;
 
 public:
     Renderer(Object* parent);
     ~Renderer() override;
 
     void loadFromJson(const nlohmann::json& json) override;
-    void update() override;
+    void updateRender() override;
 
     void createSolidColorTexture(int width, int height, const glm::vec3& color);
     void setupSurfaceBuffer();

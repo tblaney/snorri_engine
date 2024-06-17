@@ -1,39 +1,46 @@
 #include "window.h"
-#include "shader.h"
 #include "scene.h"
-
-#include "file/pathutils.h"
-#include "file/jsonloader.h"
 #include "surface/surfacemanager.h"
-
-#include "object/object.h"
-#include "object/point.h"
-
-#include "camera/camera.h"
-
 #include "time.h"
 
 #include <iostream> 
+#include <thread>
+#include <atomic>
 
 int main() {
     
     Window window(640, 360, "snorri_engine_v1");
 
-    Time::initialize();  // Initialize the timer
+    Time::initialize();
 
     Scene scene("data/scene_start.json");
 
+    std::atomic<bool> running(true);
+    std::thread physicsThread([&]() {
+        while (running) {
+            if (Time::updatePhysics()) {
+                scene.updatePhysics();
+            }
+        }
+    });
+
     while (!window.shouldClose()) {
         window.clear();
-        
-        if (Time::update())  // Update the time each frame
+
+        if (Time::update()) 
             scene.update();
+
+        scene.updateRender();
 
         window.display();
         window.pollEvents();
     }
 
+    running = false;
+    physicsThread.join();  
+
     SurfaceManager::isApplicationShuttingDown = true;
 
     return 0;
 }
+

@@ -3,6 +3,34 @@
 float dot2( in vec2 v ) { return dot(v,v); }
 float dot2( in vec3 v ) { return dot(v,v); }
 float ndot( in vec2 a, in vec2 b ) { return a.x*b.x - a.y*b.y; }
+
+float hash(float p) {
+    p = fract(p * 0.011);
+    p *= p + 7.5;
+    p *= p + p;
+    return fract(p);
+}
+float lerp(float a, float b, float w) {
+    return (1.0 - w) * a + w * b;
+}
+float perlinNoise(vec2 uv) {
+    vec2 i = floor(uv);
+    vec2 f = fract(uv);
+
+    // Four corners in 2D of a tile
+    float a = hash(i.x + i.y * 57.0);
+    float b = hash(i.x + 1.0 + i.y * 57.0);
+    float c = hash(i.x + (i.y + 1.0) * 57.0);
+    float d = hash(i.x + 1.0 + (i.y + 1.0) * 57.0);
+
+    // Smooth interpolation
+    vec2 u = f * f * (3.0 - 2.0 * f);
+    return lerp(a, b, u.x) +
+           (c - a) * u.y * (1.0 - u.x) +
+           (d - b) * u.x * u.y;
+}
+
+
 mat3 rotationMatrix(vec3 angles)
 {
     float cx = cos(angles.x);

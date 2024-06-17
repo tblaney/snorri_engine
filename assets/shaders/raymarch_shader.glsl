@@ -199,6 +199,10 @@ float rampLighting(vec3 normalDir, vec3 lightDir)
 
     return toon;
 }
+float smoothLighting(vec3 normalDir, vec3 lightDir) {
+    float lambert = max(dot(normalDir, -lightDir), 0.0);
+    return lambert;
+}
 float getHardShadow(Ray ray, float mint, float tmax)
 {
     float t = mint;
@@ -238,7 +242,7 @@ float getSoftShadow(Ray ray, float mint, float tmax)
 }
 vec4 getPixelColor(vec3 lightDir, Surface surface, vec3 surfPoint, vec3 normal)
 {
-    float diffuseMask = max(0.1, rampLighting(normal, lightDir));
+    float diffuseMask = max(0.1, smoothLighting(normal, lightDir));
     Ray shadowRay = createRay(surfPoint + normal * SURF_DIST * 10.0, -lightDir);
     //Ray shadowRay = createRay(lightPosition, lightDir);
     diffuseMask *= max(getSoftShadow(shadowRay, 0.02, 8.0), 0.2);

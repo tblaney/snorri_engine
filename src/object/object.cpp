@@ -106,6 +106,22 @@ void Object::update() {
         child->update();  // Recursively update child objects
     }
 }
+void Object::updatePhysics() {
+    for (auto& component : components) {
+        component->updatePhysics();  // Call the update method on each component
+    }
+    for (auto& [childName, child] : children) {
+        child->updatePhysics();  // Recursively update child objects
+    }
+}
+void Object::updateRender() {
+    for (auto& component : components) {
+        component->updateRender();  // Call the update method on each component
+    }
+    for (auto& [childName, child] : children) {
+        child->updateRender();  // Recursively update child objects
+    }
+}
 
 std::unordered_map<std::string, Object::ComponentFactory>& Object::getComponentFactories() {
     static std::unordered_map<std::string, Object::ComponentFactory> componentFactories;

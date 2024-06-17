@@ -28,6 +28,17 @@ void Renderer::loadFromJson(const nlohmann::json& json) {
     if (json.contains("outline_width"))
         outlineWidth = json["outline_width"];
 
+    float rendererDepth = -1.0f;
+    if (json.contains("depth"))
+        rendererDepth = json["depth"];
+
+    width = 640;
+    height = 360;
+    if (json.contains("width"))
+        width = json["width"];
+    if (json.contains("height"))
+        height = json["height"];
+
     shader.setShaderPaths(getAssetPath(json["vert_shader"]).string(), 
         getAssetPath(json["frag_shader"]).string());
     compute.setShaderPaths(getAssetPath(json["compute_shader"]).string(),
@@ -35,10 +46,10 @@ void Renderer::loadFromJson(const nlohmann::json& json) {
 
     float vertices[] = {
         // positions       // texture coords
-        -1.0f, -1.0f, 0.0f,  0.0f, 0.0f,
-         1.0f, -1.0f, 0.0f,  1.0f, 0.0f,
-         1.0f,  1.0f, 0.0f,  1.0f, 1.0f,
-        -1.0f,  1.0f, 0.0f,  0.0f, 1.0f
+        -1.0f, -1.0f, rendererDepth,  0.0f, 0.0f,
+         1.0f, -1.0f, rendererDepth,  1.0f, 0.0f,
+         1.0f,  1.0f, rendererDepth,  1.0f, 1.0f,
+        -1.0f,  1.0f, rendererDepth,  0.0f, 1.0f
     };
 
     unsigned int indices[] = {
@@ -67,11 +78,8 @@ void Renderer::loadFromJson(const nlohmann::json& json) {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-    if (json.contains("width") && json.contains("height")) {
-        createSolidColorTexture(json["width"], json["height"], glm::vec3(1.0f, 0.0f, 0.0f));
-    } else {
-        createSolidColorTexture(640, 360, glm::vec3(1.0f, 0.0f, 0.0f));
-    }
+    createSolidColorTexture(width, height, glm::vec3(1.0f, 0.0f, 0.0f));
+    
 }
 
 void Renderer::createSolidColorTexture(int width, int height, const glm::vec3& color) {
@@ -128,11 +136,11 @@ void Renderer::render(Camera* cam, Light* light) {
     compute.use();
     setupComputeData(cam, light);
     setupSurfaceBuffer(); // Binding compute buffer with surface data to image unit 0
-    compute.setupResultBuffer(640*360);
+    compute.setupResultBuffer(width*height);
     compute.setTexture(texture, 1);  // Binding the texture to image unit 1
-    compute.dispatch(640, 360, 1);
+    compute.dispatch(width, height, 1);
 
-    std::vector<ResultData> results = compute.retrieveResults(640*320);
+    //std::vector<ResultData> results = compute.retrieveResults(640*320);
     //compute.printResults(results);
     shader.use();
 
@@ -145,7 +153,7 @@ void Renderer::render(Camera* cam, Light* light) {
     glBindVertexArray(0);
 }
 
-void Renderer::update() {
+void Renderer::updateRender() {
     Camera* cam = Camera::getMainCamera();
     if (cam == nullptr)
         return;

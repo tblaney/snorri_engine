@@ -32,6 +32,8 @@ public:
 
     // Update (now a normal member function)
     void update();
+    void updatePhysics();
+    void updateRender();
 
     // Component management
     template<typename T>
@@ -40,6 +42,7 @@ public:
     using ComponentFactory = std::function<std::shared_ptr<Component>(Object*)>;
     static std::unordered_map<std::string, ComponentFactory>& getComponentFactories();
     static void registerComponent(const std::string& name, ComponentFactory factory);
+    void loadChildren(const nlohmann::json& json);
 
 private:
     Point point;
@@ -50,7 +53,6 @@ private:
 
     void loadPoint(const nlohmann::json& json);
     void loadComponents(const nlohmann::json& json);
-    void loadChildren(const nlohmann::json& json);
 };
 
 template<typename T>

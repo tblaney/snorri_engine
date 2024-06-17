@@ -30,6 +30,7 @@ set(SOURCES
     src/computephysics.cpp
     src/scene.cpp
     src/renderer.cpp
+    src/rendererui.cpp
     src/log.cpp
     src/surface/surface.cpp
     src/surface/surfacemanager.cpp

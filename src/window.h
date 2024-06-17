@@ -14,10 +14,10 @@ public:
     void clear() const;
     void display() const;
     void pollEvents() const;
-    GLFWwindow* getGLFWwindow() const; // Add this line
+    static GLFWwindow* getGLFWwindow(); // Now a static method
 
 private:
-    GLFWwindow* window;
+    static GLFWwindow* window; // Now a static member
 };
 
 #endif // WINDOW_H

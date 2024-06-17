@@ -1,6 +1,8 @@
 #include "window.h"
 #include <iostream>
 
+GLFWwindow* Window::window = nullptr; // Initialize static member
+
 Window::Window(int width, int height, const std::string& title) {
     if (!glfwInit()) {
         std::cerr << "Failed to initialize GLFW\n";
@@ -24,6 +26,7 @@ Window::Window(int width, int height, const std::string& title) {
 Window::~Window() {
     glfwDestroyWindow(window);
     glfwTerminate();
+    window = nullptr; // Reset static member
 }
 
 bool Window::shouldClose() const {
@@ -42,6 +45,6 @@ void Window::pollEvents() const {
     glfwPollEvents();
 }
 
-GLFWwindow* Window::getGLFWwindow() const { // Implement this method
+GLFWwindow* Window::getGLFWwindow() { // Implement this method
     return window;
 }

@@ -9,6 +9,7 @@
 #include "surface/surface.h"
 #include "surface/surfacemanager.h"
 #include "time.h"
+#include "window.h"
 
 // Constructor
 Renderer::Renderer(Object* parent) 
@@ -79,7 +80,6 @@ void Renderer::loadFromJson(const nlohmann::json& json) {
     glBindVertexArray(0);
 
     createSolidColorTexture(width, height, glm::vec3(1.0f, 0.0f, 0.0f));
-    
 }
 
 void Renderer::createSolidColorTexture(int width, int height, const glm::vec3& color) {

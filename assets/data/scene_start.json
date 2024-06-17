@@ -15,6 +15,12 @@
             "width": 640,
             "height": 360,
             "depth": 0.0
+        },
+        "renderer_ui": {
+            "vert_shader": "shaders/vertex_shader.glsl",
+            "frag_shader": "shaders/ui_fragment_shader.glsl",
+            "width": 640,
+            "height": 360
         }
     },
     "children": {

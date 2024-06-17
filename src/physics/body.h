@@ -18,11 +18,11 @@ public:
     glm::vec3 getPosition();
     BodyBox& getBodyBox();
 
+    bool isKinematic;
+
 private:
     float mass;
     glm::vec3 size;
-
-    bool isKinematic;
 
     BodyBox bodyBox;
 

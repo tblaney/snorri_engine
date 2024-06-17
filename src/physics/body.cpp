@@ -9,7 +9,7 @@
 
 Body::Body(Object* parent) 
     : Component(parent), mass(0.0), size(glm::vec3(1,1,1)), desiredVelocity(glm::vec3(0,0,0)),
-        currentVelocity(glm::vec3(0,0,0)), isKinematic(false), isGravity(false), bodyBox() {
+        currentVelocity(glm::vec3(0,0,0)), isGravity(false), isKinematic(false), bodyBox() {
     Log::console("new body!");
 }
 
@@ -21,25 +21,28 @@ Body::~Body() {
 void Body::loadFromJson(const nlohmann::json& json) {
     PhysicsManager::registerBody(shared_from_this());
 
-    
     if (json.contains("mass")) {
         mass = json["mass"];
     } else {
         mass = 1.0;
     }
-    bodyBox.mass = mass;
     if (json.contains("size")) {
         size = glm::vec3(json["size"][0],json["size"][1],json["size"][2]);
     } else {
         size = glm::vec3(1,1,1);
     }
-    bodyBox.size = size;
     if (json.contains("is_gravity")) {
         isGravity = json["is_gravity"];
     }
     if (json.contains("is_kinematic")) {
         isKinematic = json["is_kinematic"];
     }
+
+    bodyBox.mass = mass;
+    bodyBox.size = size;
+    Point& p = getPoint();
+    glm::vec3 pos = p.getPosition();
+    bodyBox.setPosition(pos);
 }
 
 BodyBox& Body::getBodyBox() {
@@ -68,6 +71,9 @@ void Body::update() {
             continue;
 
         BodyBox& otherBox = body->getBodyBox();
+
+        if (!body->isKinematic)
+            continue;
         //std::cout << "Other body position is: " << otherBox.position.x << ", " <<
         //    otherBox.position.y << ", " << otherBox.position.z
         //    << std::endl;
@@ -83,7 +89,7 @@ void Body::update() {
 
 glm::vec3 Body::getVelocity() {
     glm::vec3 vel = currentVelocity;
-    vel = glm::mix(vel, desiredVelocity + glm::vec3(0,-1,0), Time::delta);
+    vel = glm::mix(vel, desiredVelocity + glm::vec3(0,-9.8,0), Time::delta);
     return vel;
 }
 

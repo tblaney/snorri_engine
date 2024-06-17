@@ -14,26 +14,30 @@ bool BodyBox::intersects(const BodyBox& other) const {
            (abs(position.z - other.position.z) <= (size.z + other.size.z) * 0.5f);
 }
 
-void BodyBox::resolveCollision(BodyBox& other) {
-    glm::vec3 distance = other.position - position;
-    glm::vec3 halfSize = size * 0.5f + other.size * 0.5f;
-    glm::vec3 overlap = halfSize - glm::abs(distance);
+glm::vec3 BodyBox::getOverlapCenter(const BodyBox& other) const {
+    glm::vec3 halfSize1 = size * 0.5f;
+    glm::vec3 halfSize2 = other.size * 0.5f;
 
-    if (overlap.x < overlap.y && overlap.x < overlap.z) {
-        float correction = overlap.x * (distance.x > 0 ? 1 : -1);
-        float impulse = correction / (mass + other.mass);
-        velocity.x -= impulse * other.mass;
-        other.velocity.x += impulse * mass;
-    } else if (overlap.y < overlap.z) {
-        float correction = overlap.y * (distance.y > 0 ? 1 : -1);
-        float impulse = correction / (mass + other.mass);
-        velocity.y -= impulse * other.mass;
-        other.velocity.y += impulse * mass;
-    } else {
-        float correction = overlap.z * (distance.z > 0 ? 1 : -1);
-        float impulse = correction / (mass + other.mass);
-        velocity.z -= impulse * other.mass;
-        other.velocity.z += impulse * mass;
+    glm::vec3 min1 = position - halfSize1;
+    glm::vec3 max1 = position + halfSize1;
+    glm::vec3 min2 = other.position - halfSize2;
+    glm::vec3 max2 = other.position + halfSize2;
+
+    glm::vec3 overlap_start = glm::max(min1, min2);
+    glm::vec3 overlap_end = glm::min(max1, max2);
+    glm::vec3 overlap_center = (overlap_start + overlap_end) * 0.5f;
+
+    return overlap_center;
+}
+
+void BodyBox::resolveCollision(BodyBox& other) {
+    if (((position.y - other.position.y) <= (size.y + other.size.y) * 0.5f)) {
+        //below
+        if (velocity.y < 0.0)
+            velocity.y = 0.0;
+    } else if ((abs(position.y - other.position.y) <= (size.y + other.size.y) * 0.5f)) {
+        // above
+        velocity.y = 0.0;
     }
 }
 

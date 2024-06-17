@@ -22,6 +22,8 @@ public:
     // Methods to set position and velocity
     void setPosition(const glm::vec3& newPosition);
     void setVelocity(const glm::vec3& newVelocity);
+
+    glm::vec3 getOverlapCenter(const BodyBox& other) const;
 };
 
 #endif // BODYBOX_H

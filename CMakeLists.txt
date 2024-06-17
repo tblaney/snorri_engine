@@ -43,6 +43,7 @@ set(SOURCES
     src/light.cpp
     src/physics/body.cpp
     src/physics/physicsmanager.cpp
+    src/physics/bodybox.cpp
 )
 
 # Add executable

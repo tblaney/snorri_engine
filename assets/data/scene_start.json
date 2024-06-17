@@ -45,7 +45,7 @@
         "surface_test_01": {
             "name": "surface_test_01",
             "point": {
-                "position": [0.0,0.0,0.0],
+                "position": [2.0,1.0,0.0],
                 "rotation": [0.0,0.0,0.0],
                 "scale": [1.0,1.0,1.0]
             },
@@ -56,16 +56,16 @@
                     "blend_strength": 1.0
                 },
                 "body": {
-                    
+                    "size": [1.0,1.0,1.0]
                 }
             }
         },
         "surface_test_02": {
             "name": "surface_test_02",
             "point": {
-                "position": [0.0,2.0,0.0],
+                "position": [-2.0,1.0,0.0],
                 "rotation": [0.0,45.0,0.0],
-                "scale": [2.0,1.0,2.0]
+                "scale": [1.0,1.0,1.0]
             },
             "components": {
                 "surface": {
@@ -73,6 +73,9 @@
                     "shape": 1,
                     "blend": 1,
                     "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [1.0,1.0,1.0]
                 }
             }
         },
@@ -87,6 +90,10 @@
                 "surface": {
                     "color": [255, 255, 255],
                     "shape": 2
+                },
+                "body": {
+                    "size": [10.0,0.5,10.0],
+                    "is_kinematic": true   
                 }
             }
         }

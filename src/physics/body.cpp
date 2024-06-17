@@ -1,15 +1,15 @@
 #include "body.h"
+#include "bodybox.h"
 #include "physicsmanager.h"
 #include "../time.h"
-#include "../object/point.h"
 #include "../surface/surfacemanager.h"
 #include "../log.h"
 #include <glm/glm.hpp>
 #include <iostream>
 
 Body::Body(Object* parent) 
-    : Component(parent), shapeType(0), bounciness(0), mass(0.0), desiredVelocity(glm::vec3(0,0,0)),
-        currentVelocity(glm::vec3(0,0,0)) {
+    : Component(parent), mass(0.0), size(glm::vec3(1,1,1)), desiredVelocity(glm::vec3(0,0,0)),
+        currentVelocity(glm::vec3(0,0,0)), isKinematic(false), isGravity(false), bodyBox() {
     Log::console("new body!");
 }
 
@@ -20,42 +20,71 @@ Body::~Body() {
 
 void Body::loadFromJson(const nlohmann::json& json) {
     PhysicsManager::registerBody(shared_from_this());
+
     
     if (json.contains("mass")) {
         mass = json["mass"];
+    } else {
+        mass = 1.0;
     }
+    bodyBox.mass = mass;
+    if (json.contains("size")) {
+        size = glm::vec3(json["size"][0],json["size"][1],json["size"][2]);
+    } else {
+        size = glm::vec3(1,1,1);
+    }
+    bodyBox.size = size;
+    if (json.contains("is_gravity")) {
+        isGravity = json["is_gravity"];
+    }
+    if (json.contains("is_kinematic")) {
+        isKinematic = json["is_kinematic"];
+    }
+}
+
+BodyBox& Body::getBodyBox() {
+    return bodyBox;
 }
 
 void Body::update() {
-    //Point& p = getPoint();
-    //glm::vec3 pos = p.getPosition();
-    //p.setPosition(glm::vec3(pos.x+Time::delta, pos.y, pos.z));
+    if (isKinematic)
+        return;
 
     Point& p = getPoint();
     glm::vec3 pos = p.getPosition();
-    std::vector<std::shared_ptr<Body>> bodies = PhysicsManager::getClosest(pos.x, pos.y, pos.z, shared_from_this());
+    glm::vec3 vel = getVelocity();
+
+    bodyBox.setPosition(pos);
+    bodyBox.setVelocity(vel);
+
+    //std::cout << "Body size is: " << bodyBox.size.x << ", " <<
+     //   bodyBox.size.y << ", " << bodyBox.size.z
+     //   << std::endl;
+
+    std::vector<std::shared_ptr<Body>> bodies = PhysicsManager::getClosest(pos.x, pos.y, pos.z);
+    //Log::console("Number of bodies retrieved for collision checks: " + std::to_string(bodies.size()));
     for (const auto& body : bodies) {
-        // Perform cleanup or other operations
-        // Example cleanup operation
+        if (body == shared_from_this())
+            continue;
+
+        BodyBox& otherBox = body->getBodyBox();
+        //std::cout << "Other body position is: " << otherBox.position.x << ", " <<
+        //    otherBox.position.y << ", " << otherBox.position.z
+        //    << std::endl;
+        if (bodyBox.intersects(otherBox)) {
+            //Log::console("body collision registered!");
+            bodyBox.resolveCollision(otherBox);
+        }
     }
+    currentVelocity = bodyBox.velocity;
+    pos += bodyBox.velocity * Time::delta; // Ensure deltaTime is defined or accessible
+    p.setPosition(pos); // Make sure setPosition actually modifies the Body's stored position, or that it's unnecessary based on your architecture
 }
 
-glm::vec4 Body::getVelocity() {
-    return glm::vec4(0,0,0,0);
-}
-
-BodyData Body::getData() {
-    BodyData data;
-    const Point& p = getPoint();
-    data.position = glm::vec4(p.getPosition(),1);
-    glm::vec3 rotationDegrees = p.getRotation();
-    data.rotation = glm::vec4(glm::radians(rotationDegrees), 1);
-    data.scale = glm::vec4(p.getScale(),1);
-    data.velocity = getVelocity();
-    data.shapeType = shapeType;
-    data.bounciness = bounciness;
-    data.mass = mass;
-    return data;
+glm::vec3 Body::getVelocity() {
+    glm::vec3 vel = currentVelocity;
+    vel = glm::mix(vel, desiredVelocity + glm::vec3(0,-1,0), Time::delta);
+    return vel;
 }
 
 glm::vec3 Body::getPosition() {

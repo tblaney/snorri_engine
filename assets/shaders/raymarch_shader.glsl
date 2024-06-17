@@ -50,7 +50,6 @@ uniform float time;
 uniform int numSurfaces;
 uniform float outlineWidth;
 
-
 Ray createRay(vec3 origin, vec3 direction) {
     Ray ray;
     ray.origin = origin;
@@ -68,7 +67,7 @@ Ray createCameraRay(vec2 uv) {
 }
 float getSurfaceDistance(vec3 p, SurfaceData surface) {
     if (surface.shapeType == 0) {
-        return sdEllipsoid(p, surface.scale.xyz);
+        return sdEllipsoid(p, surface.scale.xyz/2.0);
     } else if (surface.shapeType == 1) {
         return sdBox(p, surface.scale.xyz/2.0);
     } else if (surface.shapeType == 2) {

@@ -1,5 +1,5 @@
 // Log.cpp
-#include "Log.h"
+#include "log.h"
 #include <iostream>
 
 void Log::console(const std::string& logText) {

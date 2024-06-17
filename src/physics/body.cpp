@@ -1,5 +1,7 @@
 #include "body.h"
 #include "physicsmanager.h"
+#include "../time.h"
+#include "../object/point.h"
 #include "../surface/surfacemanager.h"
 #include "../log.h"
 #include <glm/glm.hpp>
@@ -19,19 +21,23 @@ Body::~Body() {
 void Body::loadFromJson(const nlohmann::json& json) {
     PhysicsManager::registerBody(shared_from_this());
     
-    if (json.contains("shape")) {
-        shapeType = json["shape"];
-    }
-    if (json.contains("bounciness")) {
-        bounciness = json["bounciness"];
-    }
     if (json.contains("mass")) {
         mass = json["mass"];
     }
 }
 
 void Body::update() {
+    //Point& p = getPoint();
+    //glm::vec3 pos = p.getPosition();
+    //p.setPosition(glm::vec3(pos.x+Time::delta, pos.y, pos.z));
 
+    Point& p = getPoint();
+    glm::vec3 pos = p.getPosition();
+    std::vector<std::shared_ptr<Body>> bodies = PhysicsManager::getClosest(pos.x, pos.y, pos.z, shared_from_this());
+    for (const auto& body : bodies) {
+        // Perform cleanup or other operations
+        // Example cleanup operation
+    }
 }
 
 glm::vec4 Body::getVelocity() {

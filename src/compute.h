@@ -22,6 +22,7 @@ public:
     ~ComputeShader();
 
     void setShaderPaths(const std::string& computePath, const std::string& sdfPath);
+    void setShaderPath(const std::string& computePath);
 
     void use();
     virtual void dispatch(int width, int height, int depth);

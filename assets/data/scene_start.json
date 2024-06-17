@@ -33,7 +33,7 @@
             "name": "light",
             "point": {
                 "position": [0.0,20.0,10.0],
-                "rotation": [-45.0,195.0,0.0],
+                "rotation": [-45.0,45.0,0.0],
                 "scale": [1.0,1.0,1.0]
             },
             "components": {
@@ -54,15 +54,18 @@
                     "color": [195, 107, 28],
                     "blend": 0,
                     "blend_strength": 1.0
+                },
+                "body": {
+                    
                 }
             }
         },
         "surface_test_02": {
             "name": "surface_test_02",
             "point": {
-                "position": [0.0,2.0,1.0],
-                "rotation": [35.0,0.0,45.0],
-                "scale": [2.0,1.0,1.0]
+                "position": [0.0,2.0,0.0],
+                "rotation": [0.0,45.0,0.0],
+                "scale": [2.0,1.0,2.0]
             },
             "components": {
                 "surface": {

@@ -230,7 +230,7 @@ float getSoftShadow(Ray ray, float mint, float tmax)
     {
         vec3 vec = ray.origin + ray.direction * t;
         float h = getSurface(vec).distanceToSurface;
-        res = min(res, 8.0 * h / t);
+        res = min(res, 12.0 * h / t);
         t += clamp(h, 0.02, 0.10);
         if (h < 0.001 || t > tmax) break;
     }
@@ -242,8 +242,8 @@ vec4 getPixelColor(vec3 lightDir, Surface surface, vec3 surfPoint, vec3 normal)
     float diffuseMask = max(0.1, rampLighting(normal, lightDir));
     Ray shadowRay = createRay(surfPoint + normal * SURF_DIST * 10.0, -lightDir);
     //Ray shadowRay = createRay(lightPosition, lightDir);
-    //diffuseMask *= max(getSoftShadow(shadowRay, 0.02, 8.0), 0.1);
-    diffuseMask *= max(getHardShadow(shadowRay, 0.02, 8.0), 0.1);
+    diffuseMask *= max(getSoftShadow(shadowRay, 0.02, 8.0), 0.2);
+    //diffuseMask *= max(getHardShadow(shadowRay, 0.02, 8.0), 0.1);
 
     return diffuseMask * surface.diffuse;
 }

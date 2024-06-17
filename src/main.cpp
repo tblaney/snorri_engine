@@ -25,8 +25,10 @@ int main() {
 
     while (!window.shouldClose()) {
         window.clear();
-        Time::update();  // Update the time each frame
-        scene.update();
+        
+        if (Time::update())  // Update the time each frame
+            scene.update();
+
         window.display();
         window.pollEvents();
     }

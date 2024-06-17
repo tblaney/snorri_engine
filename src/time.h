@@ -5,13 +5,15 @@
 
 class Time {
 public:
-    static void update();     // Updates the time since startup
+    static bool update();     // Updates the time since startup and returns true if delta is reached
     static void initialize(); // Initializes the start time
 
-    static float since;       // Time since startup in seconds
+    static float delta;        // Fixed time step for updates in seconds
+    static float since;        // Time since startup in seconds
 
 private:
-    static std::chrono::high_resolution_clock::time_point startTime; // Start time
+    static std::chrono::high_resolution_clock::time_point startTime;
+    static std::chrono::high_resolution_clock::time_point lastUpdate; // Time of the last update
 };
 
 #endif // TIME_H

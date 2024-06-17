@@ -7,6 +7,26 @@ ComputeShader::ComputeShader() {
         
 }
 
+void ComputeShader::setShaderPath(const std::string& filePath) {
+    std::string shaderCode = readShaderFile(filePath);
+    const char* shaderSource = shaderCode.c_str();
+
+    // Create the shader
+    GLuint shader = glCreateShader(GL_COMPUTE_SHADER);
+    glShaderSource(shader, 1, &shaderSource, NULL);
+    glCompileShader(shader);
+    checkCompileErrors(shader, "COMPUTE");
+
+    // Create the program and link it
+    programID = glCreateProgram();
+    glAttachShader(programID, shader);
+    glLinkProgram(programID);
+    checkCompileErrors(programID, "PROGRAM");
+
+    // Delete the shader as it's linked into our program now and no longer necessary
+    glDeleteShader(shader);
+}
+
 void ComputeShader::setShaderPaths(const std::string& filePath, const std::string& sdfPath) {
     std::string shaderCode = readShaderFile(filePath);
     std::string sdfCode = readShaderFile(sdfPath);

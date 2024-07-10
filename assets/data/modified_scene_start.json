@@ -1,0 +1,3485 @@
+{
+    "name": "scene_start",
+    "point": {
+        "position": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "scale": [
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    "components": {
+        "renderer": {
+            "vert_shader": "shaders/vertex_shader.glsl",
+            "frag_shader": "shaders/fragment_shader.glsl",
+            "compute_shader": "shaders/raymarch_shader.glsl",
+            "outline_width": 0.05,
+            "sdf_shader": "shaders/sdf.glsl",
+            "width": 640,
+            "height": 360,
+            "depth": 0.0
+        }
+    },
+    "children": {
+        "camera": {
+            "name": "camera",
+            "point": {
+                "position": [
+                    0.0,
+                    5.0,
+                    10.0
+                ],
+                "rotation": [
+                    -20.0,
+                    180.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "camera": {
+                    "fov": 45.0,
+                    "is_main": true
+                }
+            }
+        },
+        "light": {
+            "name": "light",
+            "point": {
+                "position": [
+                    0.0,
+                    20.0,
+                    10.0
+                ],
+                "rotation": [
+                    -45.0,
+                    125.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "light": {
+                    "is_main": true
+                }
+            }
+        },
+        "surface_test_01": {
+            "name": "surface_test_01",
+            "point": {
+                "position": [
+                    -9.0,
+                    0.0,
+                    -9.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_02": {
+            "name": "surface_test_02",
+            "point": {
+                "position": [
+                    -9.0,
+                    0.0,
+                    -7.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_03": {
+            "name": "surface_test_03",
+            "point": {
+                "position": [
+                    -9.0,
+                    0.0,
+                    -5.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_04": {
+            "name": "surface_test_04",
+            "point": {
+                "position": [
+                    -9.0,
+                    0.0,
+                    -3.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_05": {
+            "name": "surface_test_05",
+            "point": {
+                "position": [
+                    -9.0,
+                    0.0,
+                    -1.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_06": {
+            "name": "surface_test_06",
+            "point": {
+                "position": [
+                    -9.0,
+                    0.0,
+                    1.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_07": {
+            "name": "surface_test_07",
+            "point": {
+                "position": [
+                    -9.0,
+                    0.0,
+                    3.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_08": {
+            "name": "surface_test_08",
+            "point": {
+                "position": [
+                    -9.0,
+                    0.0,
+                    5.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_09": {
+            "name": "surface_test_09",
+            "point": {
+                "position": [
+                    -9.0,
+                    0.0,
+                    7.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_10": {
+            "name": "surface_test_10",
+            "point": {
+                "position": [
+                    -9.0,
+                    0.0,
+                    9.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_11": {
+            "name": "surface_test_11",
+            "point": {
+                "position": [
+                    -7.0,
+                    0.0,
+                    -9.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_12": {
+            "name": "surface_test_12",
+            "point": {
+                "position": [
+                    -7.0,
+                    0.0,
+                    -7.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_13": {
+            "name": "surface_test_13",
+            "point": {
+                "position": [
+                    -7.0,
+                    0.0,
+                    -5.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_14": {
+            "name": "surface_test_14",
+            "point": {
+                "position": [
+                    -7.0,
+                    0.0,
+                    -3.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_15": {
+            "name": "surface_test_15",
+            "point": {
+                "position": [
+                    -7.0,
+                    0.0,
+                    -1.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_16": {
+            "name": "surface_test_16",
+            "point": {
+                "position": [
+                    -7.0,
+                    0.0,
+                    1.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_17": {
+            "name": "surface_test_17",
+            "point": {
+                "position": [
+                    -7.0,
+                    0.0,
+                    3.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_18": {
+            "name": "surface_test_18",
+            "point": {
+                "position": [
+                    -7.0,
+                    0.0,
+                    5.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_19": {
+            "name": "surface_test_19",
+            "point": {
+                "position": [
+                    -7.0,
+                    0.0,
+                    7.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_20": {
+            "name": "surface_test_20",
+            "point": {
+                "position": [
+                    -7.0,
+                    0.0,
+                    9.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_21": {
+            "name": "surface_test_21",
+            "point": {
+                "position": [
+                    -5.0,
+                    0.0,
+                    -9.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_22": {
+            "name": "surface_test_22",
+            "point": {
+                "position": [
+                    -5.0,
+                    0.0,
+                    -7.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_23": {
+            "name": "surface_test_23",
+            "point": {
+                "position": [
+                    -5.0,
+                    0.0,
+                    -5.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_24": {
+            "name": "surface_test_24",
+            "point": {
+                "position": [
+                    -5.0,
+                    0.0,
+                    -3.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_25": {
+            "name": "surface_test_25",
+            "point": {
+                "position": [
+                    -5.0,
+                    0.0,
+                    -1.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_26": {
+            "name": "surface_test_26",
+            "point": {
+                "position": [
+                    -5.0,
+                    0.0,
+                    1.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_27": {
+            "name": "surface_test_27",
+            "point": {
+                "position": [
+                    -5.0,
+                    0.0,
+                    3.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_28": {
+            "name": "surface_test_28",
+            "point": {
+                "position": [
+                    -5.0,
+                    0.0,
+                    5.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_29": {
+            "name": "surface_test_29",
+            "point": {
+                "position": [
+                    -5.0,
+                    0.0,
+                    7.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_30": {
+            "name": "surface_test_30",
+            "point": {
+                "position": [
+                    -5.0,
+                    0.0,
+                    9.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_31": {
+            "name": "surface_test_31",
+            "point": {
+                "position": [
+                    -3.0,
+                    0.0,
+                    -9.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_32": {
+            "name": "surface_test_32",
+            "point": {
+                "position": [
+                    -3.0,
+                    0.0,
+                    -7.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_33": {
+            "name": "surface_test_33",
+            "point": {
+                "position": [
+                    -3.0,
+                    0.0,
+                    -5.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_34": {
+            "name": "surface_test_34",
+            "point": {
+                "position": [
+                    -3.0,
+                    0.0,
+                    -3.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_35": {
+            "name": "surface_test_35",
+            "point": {
+                "position": [
+                    -3.0,
+                    0.0,
+                    -1.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_36": {
+            "name": "surface_test_36",
+            "point": {
+                "position": [
+                    -3.0,
+                    0.0,
+                    1.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_37": {
+            "name": "surface_test_37",
+            "point": {
+                "position": [
+                    -3.0,
+                    0.0,
+                    3.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_38": {
+            "name": "surface_test_38",
+            "point": {
+                "position": [
+                    -3.0,
+                    0.0,
+                    5.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_39": {
+            "name": "surface_test_39",
+            "point": {
+                "position": [
+                    -3.0,
+                    0.0,
+                    7.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_40": {
+            "name": "surface_test_40",
+            "point": {
+                "position": [
+                    -3.0,
+                    0.0,
+                    9.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_41": {
+            "name": "surface_test_41",
+            "point": {
+                "position": [
+                    -1.0,
+                    0.0,
+                    -9.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_42": {
+            "name": "surface_test_42",
+            "point": {
+                "position": [
+                    -1.0,
+                    0.0,
+                    -7.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_43": {
+            "name": "surface_test_43",
+            "point": {
+                "position": [
+                    -1.0,
+                    0.0,
+                    -5.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_44": {
+            "name": "surface_test_44",
+            "point": {
+                "position": [
+                    -1.0,
+                    0.0,
+                    -3.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_45": {
+            "name": "surface_test_45",
+            "point": {
+                "position": [
+                    -1.0,
+                    0.0,
+                    -1.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_46": {
+            "name": "surface_test_46",
+            "point": {
+                "position": [
+                    -1.0,
+                    0.0,
+                    1.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_47": {
+            "name": "surface_test_47",
+            "point": {
+                "position": [
+                    -1.0,
+                    0.0,
+                    3.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_48": {
+            "name": "surface_test_48",
+            "point": {
+                "position": [
+                    -1.0,
+                    0.0,
+                    5.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_49": {
+            "name": "surface_test_49",
+            "point": {
+                "position": [
+                    -1.0,
+                    0.0,
+                    7.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_50": {
+            "name": "surface_test_50",
+            "point": {
+                "position": [
+                    -1.0,
+                    0.0,
+                    9.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_51": {
+            "name": "surface_test_51",
+            "point": {
+                "position": [
+                    1.0,
+                    0.0,
+                    -9.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_52": {
+            "name": "surface_test_52",
+            "point": {
+                "position": [
+                    1.0,
+                    0.0,
+                    -7.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_53": {
+            "name": "surface_test_53",
+            "point": {
+                "position": [
+                    1.0,
+                    0.0,
+                    -5.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_54": {
+            "name": "surface_test_54",
+            "point": {
+                "position": [
+                    1.0,
+                    0.0,
+                    -3.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_55": {
+            "name": "surface_test_55",
+            "point": {
+                "position": [
+                    1.0,
+                    0.0,
+                    -1.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_56": {
+            "name": "surface_test_56",
+            "point": {
+                "position": [
+                    1.0,
+                    0.0,
+                    1.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_57": {
+            "name": "surface_test_57",
+            "point": {
+                "position": [
+                    1.0,
+                    0.0,
+                    3.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_58": {
+            "name": "surface_test_58",
+            "point": {
+                "position": [
+                    1.0,
+                    0.0,
+                    5.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_59": {
+            "name": "surface_test_59",
+            "point": {
+                "position": [
+                    1.0,
+                    0.0,
+                    7.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_60": {
+            "name": "surface_test_60",
+            "point": {
+                "position": [
+                    1.0,
+                    0.0,
+                    9.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_61": {
+            "name": "surface_test_61",
+            "point": {
+                "position": [
+                    3.0,
+                    0.0,
+                    -9.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_62": {
+            "name": "surface_test_62",
+            "point": {
+                "position": [
+                    3.0,
+                    0.0,
+                    -7.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_63": {
+            "name": "surface_test_63",
+            "point": {
+                "position": [
+                    3.0,
+                    0.0,
+                    -5.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_64": {
+            "name": "surface_test_64",
+            "point": {
+                "position": [
+                    3.0,
+                    0.0,
+                    -3.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_65": {
+            "name": "surface_test_65",
+            "point": {
+                "position": [
+                    3.0,
+                    0.0,
+                    -1.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_66": {
+            "name": "surface_test_66",
+            "point": {
+                "position": [
+                    3.0,
+                    0.0,
+                    1.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_67": {
+            "name": "surface_test_67",
+            "point": {
+                "position": [
+                    3.0,
+                    0.0,
+                    3.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_68": {
+            "name": "surface_test_68",
+            "point": {
+                "position": [
+                    3.0,
+                    0.0,
+                    5.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_69": {
+            "name": "surface_test_69",
+            "point": {
+                "position": [
+                    3.0,
+                    0.0,
+                    7.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_70": {
+            "name": "surface_test_70",
+            "point": {
+                "position": [
+                    3.0,
+                    0.0,
+                    9.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_71": {
+            "name": "surface_test_71",
+            "point": {
+                "position": [
+                    5.0,
+                    0.0,
+                    -9.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_72": {
+            "name": "surface_test_72",
+            "point": {
+                "position": [
+                    5.0,
+                    0.0,
+                    -7.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_73": {
+            "name": "surface_test_73",
+            "point": {
+                "position": [
+                    5.0,
+                    0.0,
+                    -5.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_74": {
+            "name": "surface_test_74",
+            "point": {
+                "position": [
+                    5.0,
+                    0.0,
+                    -3.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_75": {
+            "name": "surface_test_75",
+            "point": {
+                "position": [
+                    5.0,
+                    0.0,
+                    -1.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_76": {
+            "name": "surface_test_76",
+            "point": {
+                "position": [
+                    5.0,
+                    0.0,
+                    1.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_77": {
+            "name": "surface_test_77",
+            "point": {
+                "position": [
+                    5.0,
+                    0.0,
+                    3.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_78": {
+            "name": "surface_test_78",
+            "point": {
+                "position": [
+                    5.0,
+                    0.0,
+                    5.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_79": {
+            "name": "surface_test_79",
+            "point": {
+                "position": [
+                    5.0,
+                    0.0,
+                    7.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_80": {
+            "name": "surface_test_80",
+            "point": {
+                "position": [
+                    5.0,
+                    0.0,
+                    9.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_81": {
+            "name": "surface_test_81",
+            "point": {
+                "position": [
+                    7.0,
+                    0.0,
+                    -9.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_82": {
+            "name": "surface_test_82",
+            "point": {
+                "position": [
+                    7.0,
+                    0.0,
+                    -7.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_83": {
+            "name": "surface_test_83",
+            "point": {
+                "position": [
+                    7.0,
+                    0.0,
+                    -5.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_84": {
+            "name": "surface_test_84",
+            "point": {
+                "position": [
+                    7.0,
+                    0.0,
+                    -3.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_85": {
+            "name": "surface_test_85",
+            "point": {
+                "position": [
+                    7.0,
+                    0.0,
+                    -1.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_86": {
+            "name": "surface_test_86",
+            "point": {
+                "position": [
+                    7.0,
+                    0.0,
+                    1.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_87": {
+            "name": "surface_test_87",
+            "point": {
+                "position": [
+                    7.0,
+                    0.0,
+                    3.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_88": {
+            "name": "surface_test_88",
+            "point": {
+                "position": [
+                    7.0,
+                    0.0,
+                    5.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_89": {
+            "name": "surface_test_89",
+            "point": {
+                "position": [
+                    7.0,
+                    0.0,
+                    7.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_90": {
+            "name": "surface_test_90",
+            "point": {
+                "position": [
+                    7.0,
+                    0.0,
+                    9.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_91": {
+            "name": "surface_test_91",
+            "point": {
+                "position": [
+                    9.0,
+                    0.0,
+                    -9.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_92": {
+            "name": "surface_test_92",
+            "point": {
+                "position": [
+                    9.0,
+                    0.0,
+                    -7.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_93": {
+            "name": "surface_test_93",
+            "point": {
+                "position": [
+                    9.0,
+                    0.0,
+                    -5.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_94": {
+            "name": "surface_test_94",
+            "point": {
+                "position": [
+                    9.0,
+                    0.0,
+                    -3.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_95": {
+            "name": "surface_test_95",
+            "point": {
+                "position": [
+                    9.0,
+                    0.0,
+                    -1.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_96": {
+            "name": "surface_test_96",
+            "point": {
+                "position": [
+                    9.0,
+                    0.0,
+                    1.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_97": {
+            "name": "surface_test_97",
+            "point": {
+                "position": [
+                    9.0,
+                    0.0,
+                    3.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_98": {
+            "name": "surface_test_98",
+            "point": {
+                "position": [
+                    9.0,
+                    0.0,
+                    5.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_99": {
+            "name": "surface_test_99",
+            "point": {
+                "position": [
+                    9.0,
+                    0.0,
+                    7.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "surface_test_100": {
+            "name": "surface_test_100",
+            "point": {
+                "position": [
+                    9.0,
+                    0.0,
+                    9.0
+                ],
+                "rotation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "components": {
+                "surface": {
+                    "blend": 0,
+                    "shape": 1,
+                    "blend_strength": 1.0
+                },
+                "body": {
+                    "size": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        }
+    }
+}

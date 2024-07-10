@@ -4,7 +4,7 @@
 #include <vector>  // Include for std::vector
 #include "compute.h"  // Include for std::vector
 
-class ComputeShaderPhysics : public ComputeShader {
+class ComputeShaderUi : public ComputeShader {
 public:
-    ComputeShaderPhysics();
+    ComputeShaderUi();
 };

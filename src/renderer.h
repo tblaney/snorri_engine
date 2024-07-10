@@ -11,6 +11,7 @@ class Renderer : public Component {
 private:
     unsigned int VAO, VBO, EBO;
     unsigned int texture;
+    unsigned int textureUi;
     Shader shader;
     ComputeShaderSurface compute;
     float outlineWidth;
@@ -24,7 +25,7 @@ public:
     void loadFromJson(const nlohmann::json& json) override;
     void updateRender() override;
 
-    void createSolidColorTexture(int width, int height, const glm::vec3& color);
+    void createSolidColorTexture(unsigned int& texture, int width, int height, const glm::vec3& color);
     void setupSurfaceBuffer();
     void setupComputeData(Camera* camera, Light* light);
     void render(Camera* camera, Light* light);

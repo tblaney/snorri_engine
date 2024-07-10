@@ -27,10 +27,9 @@ set(SOURCES
     src/shader.cpp
     src/compute.cpp
     src/computesurface.cpp
-    src/computephysics.cpp
+    src/computeui.cpp
     src/scene.cpp
     src/renderer.cpp
-    src/rendererui.cpp
     src/log.cpp
     src/surface/surface.cpp
     src/surface/surfacemanager.cpp

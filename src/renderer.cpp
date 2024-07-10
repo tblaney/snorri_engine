@@ -79,10 +79,11 @@ void Renderer::loadFromJson(const nlohmann::json& json) {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-    createSolidColorTexture(width, height, glm::vec3(1.0f, 0.0f, 0.0f));
+    createSolidColorTexture(texture, width, height, glm::vec3(1.0f, 0.0f, 0.0f));
+    createSolidColorTexture(textureUi, width, height, glm::vec3(1.0f, 0.0f, 0.0f));
 }
 
-void Renderer::createSolidColorTexture(int width, int height, const glm::vec3& color) {
+void Renderer::createSolidColorTexture(unsigned int& texture, int width, int height, const glm::vec3& color) {
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
 
